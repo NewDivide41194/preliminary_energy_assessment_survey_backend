@@ -1,4 +1,4 @@
-const myDB = require('./myQueries')
+const surveydb = require('./myQueries')
 
 
-module.exports =  myDB
+module.exports =  {surveydb}

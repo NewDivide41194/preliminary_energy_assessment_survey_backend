@@ -1,4 +1,4 @@
-const getProductsList=require("./controller.products")
-// const getUsers=require("./controller.users")
+const userController = require("./controller.user");
+const loginController = require("./controller.login");
 
-module.exports={getProductsList}
+module.exports = { userController, loginController };

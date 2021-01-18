@@ -1,3 +1,5 @@
-const serviceProduct=require("./service.products")
+// const serviceProduct=require("./service.products")
+const userService = require("./service.user");
+const loginService = require("./service.login")
 
-module.exports={serviceProduct}
+module.exports = { userService,loginService };
