@@ -1,12 +1,9 @@
 const { questionService } = require("../services");
 const response = require("../response/response");
 var groupArray = require("group-array");
-const moment = require("moment");
 
 const getQuestion = (req, res) => {
   let count = 0;
-
-  // console.log("Ddddddddddddd",req.params)
 
   questionService
     .getQuestion()
@@ -17,20 +14,14 @@ const getQuestion = (req, res) => {
         return groupArray(data, "survey_section_id")[v];
       });
 
-      // let dd= surveySections[0].filter(d=> {
-      //     return  d.device_type=='chiller 1' || d.device_type=='condenser 1' || d.device_type == 'evaporator 1' ||
-      //     d.device_type == "cooling tower 1" || d.device_type == '1' || d.device_type == '7'})
-      //    const rr=dd.map(c=>console.log((c.question_id)))
-      // console.log(surveySections[0][0].device_type)
-
       let ans = [
         {
-          survey_header_id: surveySections[0].survey_header_id,
-          survey_name: surveySections[0].survey_name,
+          survey_header_id: surveySections[0][0].survey_header_id,
+          survey_name: surveySections[0][0].survey_name,
+          remark: surveySections[0][0].remark,
           survey_sections: surveySections.map((section) => {
             count += Object.keys(
               groupArray(
-                // section.filter((d) => d.input_types_id !== 8),
                 section,
                 "question_id"
               )
@@ -65,14 +56,6 @@ const getQuestion = (req, res) => {
           question_count: count,
         },
       ];
-
-      // let tmparr = ans[0];
-      // let test = 0;
-      // tmparr.survey_sections.map((v, k) => {
-      //     test += v.devicesQuestions[0].questions.length;
-      // });
-
-      // ans[0].question_count = test;
 
       res.json(response({ success: true, payload: ans }));
     })

@@ -4,6 +4,10 @@ const getBuilding = (building_id) => {
   return surveydb.getBuilding(building_id);
 };
 
+const getBuildingType = (building_id) => {
+  return surveydb.getBuildingType(building_id);
+};
+
 const addBuilding = (
   buildingName,
   companyName,
@@ -79,4 +83,4 @@ const addBuilding = (
   );
 };
 
-module.exports = { getBuilding, addBuilding };
+module.exports = { getBuilding, addBuilding, getBuildingType };
