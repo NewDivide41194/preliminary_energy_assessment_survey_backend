@@ -11,11 +11,6 @@ const mypool = mysql.createConnection({
   multipleStatements: true,
 });
 
-// const allProductList = () => {
-//   let query = util.promisify(mypool.query).bind(mypool);
-//   return query(`SELECT * FROM tbl_login_users`);
-// };
-
 const addUser = (userName, password, email, companyName, phoneNo) => {
   let query = util.promisify(mypool.query).bind(mypool);
   return query(`INSERT INTO PEA_Survey.tbl_login_users (user_name,password,email,active,user_level_id,company_name,phone_number)
