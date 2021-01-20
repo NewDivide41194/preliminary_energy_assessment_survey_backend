@@ -25,8 +25,9 @@ const getQuestion = (req, res) => {
 
       let ans = [
         {
-          survey_header_id: surveySections[0].survey_header_id,
-          survey_name: surveySections[0].survey_name,
+          survey_header_id: surveySections[0][0].survey_header_id,
+          survey_name: surveySections[0][0].survey_name,
+          remark: surveySections[0][0].remark,
           survey_sections: surveySections.map((section) => {
             count += Object.keys(
               groupArray(
