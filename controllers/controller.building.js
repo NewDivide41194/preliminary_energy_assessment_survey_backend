@@ -12,6 +12,16 @@ const getBuilding = (req, res) => {
     .catch((err) => res.json(response({ success: false, message: err })));
 };
 
+const getBuildingType = (req, res) => {
+
+  buildingService
+    .getBuildingType()
+    .then((data) => {
+      res.json(response({ success: true, payload: data }));
+    })
+    .catch((err) => res.json(response({ success: false, message: err })));
+};
+
 const addBuilding = (req, res) => {
     // console.log("req.body is",req.body)
   const buildingName = req.body.buildingName;
@@ -76,4 +86,4 @@ const addBuilding = (req, res) => {
 
 };
 
-module.exports = { getBuilding, addBuilding };
+module.exports = { getBuilding, addBuilding, getBuildingType };

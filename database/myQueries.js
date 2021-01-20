@@ -36,6 +36,14 @@ const getBuilding = (buildinId) => {
   );
 };
 
+
+const getBuildingType = (buildinId) => {
+  let query = util.promisify(mypool.query).bind(mypool);
+  return query(
+    `SELECT * FROM PEA_Survey.tbl_building_type;`
+  );
+};
+
 const addBuilding = (buildingName,companyName,buildingTypeId,buildingType,remark,active,createdDate,createdBy,address,postalCode,country,comment,userId,surveyHeadersId,chiller,condenser,evaporator,coolingTower,totalQuestions,BMSInstalled,totalRestaurant,avgPeople,totalMeetingRooms) => {
   let query = util.promisify(mypool.query).bind(mypool);
   return query (`Insert into PEA_Survey.tbl_buildings (building_name,company_name,building_type_id,building_type,remark,active,created_date,created_by,address,postal_code,country,comment,user_id,survey_headers_id,chiller,condenser,evaporator,cooling_tower,total_questions,BMSInstalled,total_restaurant,avg_people,total_meeting_rooms)
@@ -61,4 +69,4 @@ const getQuestion = () => {
 
 
 
-module.exports = { addUser, login, getBuilding, addBuilding, getQuestion };
+module.exports = { addUser, login, getBuilding, addBuilding, getQuestion, getBuildingType };
