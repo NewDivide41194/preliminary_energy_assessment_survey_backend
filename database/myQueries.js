@@ -63,7 +63,7 @@ const addBuilding = (buildingName,
   `)
 }
 
-const getQuestion = (buildinId) => {
+const getQuestion = (buildingId) => {
   let query = util.promisify(mypool.query).bind(mypool)
   return query (`
   select distinct o.option_choice_id as oc,t1.survey_header_id,t1.survey_name,t1.remark,t1.survey_section_id,t1.section_name,t1.question_id as primary_question,t1.question_name,t1.input_types_id,t1.option_groups_id,t1.question_key,
@@ -84,7 +84,7 @@ const getQuestion = (buildinId) => {
  survey_headers_id,building_id,keyValue,country_id as countryId,
  sub_question_id as subQuestionId ,survey_section_id as surveySectionId
  from tbl_answers ;
- select chiller,condenser,evaporator,cooling_tower,total_meeting_rooms from tbl_buildings where building_id= ${buildinId};
+ select chiller,condenser,evaporator,cooling_tower,total_meeting_rooms from tbl_buildings where building_id= ${buildingId};
   `)
 }
 

@@ -4,9 +4,9 @@ var groupArray = require("group-array");
 
 const getQuestion = (req, res) => {
   let count = 0;
-  const buildinId = req.params.buildinId
+  const buildingId = req.params.buildingId
   questionService
-    .getQuestion(buildinId)
+    .getQuestion(buildingId)
     .then((data) => {
       const surveySections = Object.keys(
         groupArray(data[2][0].total_meeting_rooms > 0 ? data[0] : data[0].filter((v) => v.survey_section_id != 3) , "survey_section_id")
