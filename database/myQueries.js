@@ -39,10 +39,28 @@ const getBuildingType = (buildinId) => {
   );
 };
 
-const addBuilding = (buildingName,companyName,buildingTypeId,buildingType,remark,active,createdDate,createdBy,address,postalCode,country,comment,userId,surveyHeadersId,chiller,condenser,evaporator,coolingTower,totalQuestions,BMSInstalled,totalRestaurant,avgPeople,totalMeetingRooms) => {
+const addBuilding = (buildingName,
+  companyName,
+  buildingTypeId,
+  buildingType,
+  active,
+  createdDate,
+  createdBy,
+  address,
+  postalCode,
+  country,
+  comment,
+  userId,
+  surveyHeadersId,
+  chiller,
+  condenser,
+  evaporator,
+  coolingTower,
+  avgPeople,
+  totalMeetingRooms) => {
   let query = util.promisify(mypool.query).bind(mypool);
-  return query (`Insert into PEA_Survey.tbl_buildings (building_name,company_name,building_type_id,building_type,remark,active,created_date,created_by,address,postal_code,country,comment,user_id,survey_headers_id,chiller,condenser,evaporator,cooling_tower,total_questions,BMSInstalled,total_restaurant,avg_people,total_meeting_rooms)
-  Values ('${buildingName}','${companyName}',${buildingTypeId},'${buildingType}','${remark}',${active},'${createdDate}',${createdBy},'${address}','${postalCode}','${country}','${comment}',${userId},${surveyHeadersId},${chiller},${condenser},${evaporator},${coolingTower},${totalQuestions},${BMSInstalled},${totalRestaurant},${avgPeople},${totalMeetingRooms})
+  return query (`Insert into PEA_Survey.tbl_buildings (building_name,company_name,building_type_id,building_type,active,created_date,created_by,address,postal_code,country,comment,user_id,survey_headers_id,chiller,condenser,evaporator,cooling_tower,avg_people,total_meeting_rooms)
+  Values ('${buildingName}','${companyName}',${buildingTypeId},'${buildingType}',${active},'${createdDate}',${createdBy},'${address}','${postalCode}','${country}','${comment}',${userId},${surveyHeadersId},${chiller},${condenser},${evaporator},${coolingTower},${avgPeople},${totalMeetingRooms})
   `)
 }
 
