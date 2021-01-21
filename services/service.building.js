@@ -13,7 +13,6 @@ const addBuilding = (
   companyName,
   buildingTypeId,
   buildingType,
-  remark,
   active,
   createdDate,
   createdBy,
@@ -28,8 +27,6 @@ const addBuilding = (
   evaporator,
   coolingTower,
   totalQuestions,
-  BMSInstalled,
-  totalRestaurant,
   avgPeople,
   totalMeetingRooms
 ) => {
@@ -37,7 +34,6 @@ const addBuilding = (
   companyName,
   buildingTypeId,
   buildingType,
-  remark,
   active,
   createdDate,
   createdBy,
@@ -51,9 +47,6 @@ const addBuilding = (
   condenser,
   evaporator,
   coolingTower,
-  totalQuestions,
-  BMSInstalled,
-  totalRestaurant,
   avgPeople,
   totalMeetingRooms)
   return surveydb.addBuilding(
@@ -61,7 +54,6 @@ const addBuilding = (
     companyName,
     buildingTypeId,
     buildingType,
-    remark,
     active,
     createdDate,
     createdBy,
@@ -75,9 +67,6 @@ const addBuilding = (
     condenser,
     evaporator,
     coolingTower,
-    totalQuestions,
-    BMSInstalled,
-    totalRestaurant,
     avgPeople,
     totalMeetingRooms
   );

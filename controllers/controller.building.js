@@ -43,8 +43,8 @@ const addBuilding = (req, res) => {
   const evaporator = req.body.evaporator;
   const coolingTower = req.body.coolingTower;
   const totalQuestions = req.body.totalQuestions;
-  const BMSInstalled = req.body.BMSInstalled;
-  const totalRestaurant = req.body.totalRestaurant;
+  // const BMSInstalled = req.body.BMSInstalled;
+  // const totalRestaurant = req.body.totalRestaurant;
   const avgPeople = req.body.avgPeople;
   const totalMeetingRooms = req.body.totalMeetingRooms;
 
@@ -52,7 +52,6 @@ const addBuilding = (req, res) => {
     companyName,
     buildingTypeId,
     buildingType,
-    remark,
     active,
     createdDate,
     createdBy,
@@ -67,8 +66,6 @@ const addBuilding = (req, res) => {
     evaporator,
     coolingTower,
     totalQuestions,
-    BMSInstalled,
-    totalRestaurant,
     avgPeople,
     totalMeetingRooms).then((data) => {
       res.json(
