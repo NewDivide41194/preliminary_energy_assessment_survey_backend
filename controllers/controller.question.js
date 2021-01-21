@@ -4,12 +4,12 @@ var groupArray = require("group-array");
 
 const getQuestion = (req, res) => {
   let count = 0;
-
+  const buildinId = req.params.buildinId
   questionService
-    .getQuestion()
+    .getQuestion(buildinId)
     .then((data) => {
       const surveySections = Object.keys(
-        groupArray(data[0], "survey_section_id")
+        groupArray(data[2][0].total_meeting_rooms > 0 ? data[0] : data[0].filter((v) => v.survey_section_id != 3) , "survey_section_id")
       ).map((v, k) => {
         return groupArray(data[0], "survey_section_id")[v];
       });
@@ -17,6 +17,7 @@ const getQuestion = (req, res) => {
         {
           survey_header_id: surveySections[0][0].survey_header_id,
           survey_name: surveySections[0][0].survey_name,
+          remark : surveySections[0][0].remark,
           survey_sections: surveySections.map((section) => {
             count += Object.keys(groupArray(section, "primary_question"))
               .length;
@@ -177,7 +178,7 @@ const getQuestion = (req, res) => {
           }),
           question_count: count,
           answers: data[1],
-          // amountOfDevice: data[2],
+          amountOfDevice: data[2],
         },
       ];
 
