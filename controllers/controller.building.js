@@ -1,5 +1,6 @@
 const { buildingService } = require("../services");
 const response = require("../response/response");
+const moment = require('moment')
 
 const getBuilding = (req, res) => {
   const buildingId = req.params.buildingId;
@@ -23,15 +24,15 @@ const getBuildingType = (req, res) => {
 };
 
 const addBuilding = (req, res) => {
-    // console.log("req.body is",req.body)
+    // console.log("req.body is",moment(Date.now()).format("YYYY-MM-DD"))
   const buildingName = req.body.buildingName;
   const companyName = req.body.companyName;
   const buildingTypeId = req.body.buildingTypeId;
   const buildingType = req.body.buildingType;
   // const remark = req.body.remark;
   const active = req.body.active;
-  const createdDate = req.body.createdDate;
-  const createdBy = req.body.createdBy;
+  const createdDate = moment(Date.now()).format("YYYY-MM-DD")
+  // const createdBy = req.body.createdBy;
   const address = req.body.address;
   const postalCode = req.body.postalCode;
   const country = req.body.country;
@@ -47,14 +48,13 @@ const addBuilding = (req, res) => {
   // const totalRestaurant = req.body.totalRestaurant;
   const avgPeople = req.body.avgPeople;
   const totalMeetingRooms = req.body.totalMeetingRooms;
-  
+
   buildingService.addBuilding(buildingName,
     companyName,
     buildingTypeId,
     buildingType,
     active,
     createdDate,
-    createdBy,
     address,
     postalCode,
     country,
