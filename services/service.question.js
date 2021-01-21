@@ -1,7 +1,7 @@
 const { surveydb } = require("../database");
 
-const getQuestion = () => {
-  return surveydb.getQuestion()
+const getQuestion = (buildinId) => {
+  return surveydb.getQuestion(buildinId)
 //   .then((data) => {
 //     if (data.length > 0) {
 //       const result = data.reduce((r, c) => {

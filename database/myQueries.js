@@ -51,13 +51,13 @@ const addBuilding = (buildingName,companyName,buildingTypeId,buildingType,remark
   `)
 }
 
-const getQuestion = () => {
+const getQuestion = (buildinId) => {
   let query = util.promisify(mypool.query).bind(mypool)
   return query (`
-  select distinct o.option_choice_id as oc,t1.survey_header_id,t1.survey_name,t1.survey_section_id,t1.section_name,t1.question_id as primary_question,t1.question_name,t1.input_types_id,t1.option_groups_id,t1.question_key,
+  select distinct o.option_choice_id as oc,t1.survey_header_id,t1.survey_name,t1.remark,t1.survey_section_id,t1.section_name,t1.question_id as primary_question,t1.question_name,t1.input_types_id,t1.option_groups_id,t1.question_key,
   t1.option_choice_id as choices_id,t1.option_choice_name as choices,t1.categories as categories,sq.question_id,sq.sub_question_name,sq.question_id as sub_question_id,sq.input_type_id,o.option_choice_name,sq.sub_question_id,o.categories as cat, t1.unit_name from
   (select h.survey_header_id,h.survey_name,s.survey_section_id,s.section_name,q.question_id,q.question_name,q.input_types_id,q.option_groups_id,q.question_key,
-  o.option_choice_id,o.option_choice_name, o.categories,u.unit_name from tbl_questions as q 
+  o.option_choice_id,o.option_choice_name, o.categories,u.unit_name,h.remark from tbl_questions as q 
   left join tbl_option_choices as o  on q.question_id = o.questions_id  
     left join tbl_survey_sections as s on s.survey_section_id = q.survey_sections_id 
     left join tbl_survey_headers as h on h.survey_header_id = s.survey_headers_id 
@@ -72,6 +72,7 @@ const getQuestion = () => {
  survey_headers_id,building_id,keyValue,country_id as countryId,
  sub_question_id as subQuestionId ,survey_section_id as surveySectionId
  from tbl_answers ;
+ select chiller,condenser,evaporator,cooling_tower,total_meeting_rooms from tbl_buildings where building_id= ${buildinId};
   `)
 }
 
