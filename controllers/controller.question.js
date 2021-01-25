@@ -97,6 +97,7 @@ const getQuestion = (req, res) => {
                             sub_question_name: v3[0].sub_question_name,
                             input_type_id: v3[0].input_type_id,
                             option_group_id: v3[0].option_group_id,
+                            sub_question_unit: v3[0].subQuestionUnitName,
                             option_choices: dataResult.filter(
                               (v) => v.option_choice_name != null
                             ),
@@ -166,6 +167,7 @@ const getQuestion = (req, res) => {
                             sub_question_name: v3[0].sub_question_name,
                             input_type_id: v3[0].input_type_id,
                             option_group_id: v3[0].option_group_id,
+                            sub_question_unit: v3[0].subQuestionUnitName,
                             option_choices: dataResult.filter(
                               (c) => c.option_choice_name != null
                             ),
