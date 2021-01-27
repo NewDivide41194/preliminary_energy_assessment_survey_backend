@@ -15,12 +15,13 @@ module.exports.uploadImage = (req, res, next) => {
       const extension = filename.split(".")[filename.split(".").length - 1];
       randomFileName = randomString + "." + extension;
       const saveTo = path.join(
-        path.join(__dirname, "../../", "assets", "images", randomFileName)
+        path.join(__dirname, "../../", "preliminary_energy_assessment_survey_backend", "images", randomFileName)
       );
-      // console.log("saveTo: ", saveTo, fieldname, filename)
+      console.log("saveTo: ", saveTo, " fieldname ", fieldname, " file name", filename ,"randomString", randomString)
       file.pipe(fs.createWriteStream(saveTo));
     });
     busboy.on("finish", () => {
+      console.log("req is", req)
       req.apiRes({
         fileName: randomFileName,
         link: "/img/" + randomFileName,
@@ -36,7 +37,7 @@ module.exports.deleteImage = async (req, res, next) => {
   try {
     const fileName = req.params.fileName;
     const filePath = path.join(
-      path.join(__dirname, "../../", "assets", "images", fileName)
+      path.join(__dirname, "../../", "preliminary_energy_assessment_survey_backend", "images", fileName)
     );
     fs.unlink(filePath, (error) => {
       if (error) return next(Error("File not found!"));
@@ -52,7 +53,7 @@ module.exports.getImage = (req, res, next) => {
   try {
     const fileName = req.params.fileName;
     const filePath = path.join(
-      path.join(__dirname, "../../", "assets", "images", fileName)
+      path.join(__dirname, "../../", "preliminary_energy_assessment_survey_backend", "images", fileName)
     );
     const readStream = fs.createReadStream(filePath);
     readStream.on("open", () => {
