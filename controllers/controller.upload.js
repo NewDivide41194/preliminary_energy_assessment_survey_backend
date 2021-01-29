@@ -13,9 +13,9 @@ module.exports.uploadImage = (req, res, next) => {
     const randomString = nanoid();
     let randomFileName = "";
     busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
-      console.log("req.file is",filename)
       const extension = filename.split(".")[filename.split(".").length - 1];
-      randomFileName = randomString + "." + extension;
+      console.log("file name is", filename)
+      randomFileName = Date.now() +"&@"+ filename + "." + extension;
       const saveTo = path.join(
         path.join(__dirname, "../../", "preliminary_energy_assessment_survey_backend", "images", randomFileName)
       );

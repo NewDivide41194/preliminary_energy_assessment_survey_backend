@@ -27,7 +27,7 @@ const addAnswer = (req, res) => {
                 let countryId = data.countryId;
                 let subQuestionId = data.subQuestionId;
                 let surveySectionId = data.surveySectionId;
-                let fileName = req.files == undefined ? null : req.files.length > 0 ? req.files[0].filename : null;
+                let fileName = data.fileName
                 try {
                     let addData = await answerService.addAnswer(other, optionChoiceId, userId, questionId, survey_headers_id, building_id, answeredDate, keyValue, countryId, subQuestionId, surveySectionId, fileName);
                     count++;
