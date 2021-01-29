@@ -1,6 +1,6 @@
 const path = require("path");
 const fs = require("fs");
-const { nanoid } = require("nanoid");
+// const { nanoid } = require("nanoid");
 const response = require("../response/response");
 const Busboy = require("busboy");
 //remove serve
@@ -10,7 +10,7 @@ module.exports.uploadImage = (req, res, next) => {
   
   try {
     const busboy = new Busboy({ headers: req.headers });
-    const randomString = nanoid();
+    // const randomString = nanoid();
     let randomFileName = "";
     busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
       const extension = filename.split(".")[filename.split(".").length - 1];
