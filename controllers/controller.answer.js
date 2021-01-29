@@ -5,8 +5,8 @@ const moment = require("moment");
 
 const addAnswer = (req, res) => {
     // upload(req, res, err => {
-        // console.log("req.file is", req.body)
-        // console.log("req.file is", req)
+        console.log("req.file is", req.body)
+        console.log("req.file is", req)
         let targetCount = req.body.data.length;
 
         let count = 0;
