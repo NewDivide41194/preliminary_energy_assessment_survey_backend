@@ -18,7 +18,7 @@ const getBuildingType = (req, res) => {
 };
 
 const getBuildingList = (req, res) => {
-
+console.log(req);
     const userId = req.params.userId
 
     buildingService.getBuildingList(userId).then((data) => {

@@ -3,11 +3,12 @@ const fs = require("fs");
 // const { nanoid } = require("nanoid");
 const response = require("../response/response");
 const Busboy = require("busboy");
+const moment = require("moment");
 //remove serve
 
 // Upload Image
 module.exports.uploadImage = (req, res, next) => {
-  
+  console.log(req.body);
   try {
     const busboy = new Busboy({ headers: req.headers });
     // const randomString = nanoid();
@@ -15,9 +16,9 @@ module.exports.uploadImage = (req, res, next) => {
     busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
       const extension = filename.split(".")[filename.split(".").length - 1];
       console.log("file name is", filename)
-      randomFileName = Date.now() +"&@"+ filename + "." + extension;
+      const fileName=moment(Date.now()).format("DD-MM-YYYY HH-mm")+filename
       const saveTo = path.join(
-        path.join(__dirname, "../../", "preliminary_energy_assessment_survey_backend", "images", randomFileName)
+        path.join(__dirname, "../../", "preliminary_energy_assessment_survey_backend", "images", fileName)
       );
       // console.log("saveTo: ", saveTo, " fieldname ", fieldname, " file name", filename ,"randomString", randomString)
       file.pipe(fs.createWriteStream(saveTo));
