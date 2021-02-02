@@ -11,7 +11,7 @@ const addAnswer = (req, res) => {
 
         let count = 0;
         let queryLoop = new Promise((resolve, reject) => { // console.log("req.body is", req.body.data[0])
-            // answerService.deleteAnswer(req.body.data[0].userId, req.body.data[0].survey_headers_id, req.body.data[0].building_id);
+             answerService.deleteAnswer(req.body.data[0].userId, req.body.data[0].survey_headers_id, req.body.data[0].building_id);
             req.body.data.map(async (data) => {
                 console.log("data.file is", data.files)
                 let optionChoiceId = data.optionChoiceId;

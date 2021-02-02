@@ -110,9 +110,9 @@ const getQuestion = (req, res) => {
                                             (v3, k3) => {
                                                 const dataResult = [];
                                                 v1.map((c) => {
-                                                    const index = dataResult.find((v) => v.option_choice_id == c.oc);
+                                                    const index = dataResult.find((v) => v.option_choice_id == c.oc );
                                                     if (index == null || index == undefined) {
-                                                        dataResult.push({option_choice_id: c.oc, option_choice_name: c.option_choice_name});
+                                                        dataResult.push({option_choice_id: c.oc, option_choice_name: c.option_choice_name, sub_question_id: c.sub_question_id});
                                                     }
                                                 });
                                                 return {
@@ -121,7 +121,7 @@ const getQuestion = (req, res) => {
                                                     input_type_id: v3[0].input_type_id,
                                                     option_group_id: v3[0].option_group_id,
                                                     sub_question_unit: v3[0].subQuestionUnitName,
-                                                    option_choices: dataResult.filter((c) => c.option_choice_name != null)
+                                                    option_choices: dataResult.filter((c) => c.option_choice_name != null && v3[0].sub_question_id == c.sub_question_id)
                                                 };
                                             }
                                         )
