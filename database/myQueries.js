@@ -39,7 +39,7 @@ const addBuilding = (buildingName, companyName, buildingTypeId, buildingType, ac
   `);
 };
 
-const getQuestion = (buildingId) => {
+const getQuestion = ( buildingId) => {
     let query = util.promisify(mypool.query).bind(mypool);
     return query(`
 select distinct o.option_choice_id as oc,t1.survey_header_id,t1.survey_name,t1.remark,t1.survey_section_id,t1.section_name,t1.question_id as primary_question,t1.question_name,t1.input_types_id,t1.option_groups_id,t1.question_key,
@@ -57,10 +57,8 @@ select distinct o.option_choice_id as oc,t1.survey_header_id,t1.survey_name,t1.r
     
     
     
-    select other,option_choices_id as optionChoiceId,users_id as userId,questions_id as questionId,
- survey_headers_id,building_id,keyValue,country_id as countryId,
- sub_question_id as subQuestionId ,survey_section_id as surveySectionId
- from tbl_answers ;
+    select other,option_choices_id as optionChoiceId,users_id as userId,questions_id as questionId, survey_headers_id,building_id,keyValue,country_id as countryId,survey_section_id as surveySectionId,
+    sub_question_id as subQuestionId from tbl_answers where survey_headers_id = 1 and building_id = ${buildingId};
  select chiller,condenser,evaporator,cooling_tower,total_meeting_rooms from tbl_buildings where building_id= ${buildingId};
   `);
 };
@@ -96,6 +94,12 @@ const deleteAnswer = (userId, survey_headers_id, building_id) => {
     return query(`delete from tbl_answers where users_id = ${userId} and survey_headers_id = ${survey_headers_id} and  building_id = ${building_id}`)
 }
 
+const getBuildingList = (userId) => {
+    let query = util.promisify(mypool.query).bind(mypool)
+    return query(`SELECT building_id,building_name,building_type_id,tbt.building_type as building_type_name FROM PEA_Survey.tbl_buildings as tb 
+    left join tbl_building_type as tbt on tb.building_type_id = tbt.id where user_id = ${userId};`)
+}
+
 module.exports = {
     addUser,
     login,
@@ -104,5 +108,6 @@ module.exports = {
     getQuestion,
     getBuildingType,
     addAnswer,
-    deleteAnswer
+    deleteAnswer,
+    getBuildingList
 };

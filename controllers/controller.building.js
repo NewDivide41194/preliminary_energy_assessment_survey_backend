@@ -17,6 +17,15 @@ const getBuildingType = (req, res) => {
     }).catch((err) => res.json(response({success: false, message: err})));
 };
 
+const getBuildingList = (req, res) => {
+console.log(req);
+    const userId = req.params.userId
+
+    buildingService.getBuildingList(userId).then((data) => {
+        res.json(response({success: true, payload: data}));
+    }).catch((err) => res.json(response({success: false, message: err})));
+};
+
 const addBuilding = (req, res) => { // console.log("req.body is",moment(Date.now()).format("YYYY-MM-DD"))
     const buildingName = req.body.buildingName;
     const companyName = req.body.companyName;
@@ -54,5 +63,6 @@ const addBuilding = (req, res) => { // console.log("req.body is",moment(Date.now
 module.exports = {
     getBuilding,
     addBuilding,
+    getBuildingList,
     getBuildingType
 };
