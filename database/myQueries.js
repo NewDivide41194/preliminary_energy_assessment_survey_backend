@@ -57,7 +57,7 @@ select distinct o.option_choice_id as oc,t1.survey_header_id,t1.survey_name,t1.r
     
     
     
-    select other,option_choices_id as optionChoiceId,users_id as userId,questions_id as questionId, survey_headers_id,building_id,keyValue,country_id as countryId,survey_section_id as surveySectionId,
+    select other,option_choices_id as optionChoiceId,users_id as userId,questions_id as questionId,file_name, survey_headers_id,building_id,keyValue,country_id as countryId,survey_section_id as surveySectionId,
     sub_question_id as subQuestionId from tbl_answers where survey_headers_id = 1 and building_id = ${buildingId};
  select chiller,condenser,evaporator,cooling_tower,total_meeting_rooms from tbl_buildings where building_id= ${buildingId};
   `);

@@ -45,7 +45,7 @@ module.exports.deleteImage = async (req, res, next) => {
     );
     fs.unlink(filePath, (error) => {
       if (error) return next(Error("File not found!"));
-      return req.apiRes(null);
+      return res.json(response({success: true, message: "Success!"}));
     });
   } catch (error) {
     return next(error);
