@@ -131,9 +131,9 @@ const getQuestion = (req, res) => {
                         )
                     };
                 }),
-                question_count: count,
                 answers: data[1],
-                amountOfDevice: data[2]
+                amountOfDevice: data[2],
+                question_count: count
             },];
 
         res.json(response({success: true, payload: ans}));
