@@ -10,26 +10,28 @@ const getQuestion = (req, res) => {
             return groupArray(data[0], "survey_section_id")[v];
         });
 
-        // const result = data[1].reduce((r, c) => { 
-        //     const R = [...r];
-        //     const index = R.findIndex((v) => v.questionId == c.questionId);
-        //     if (index === -1) {
-        //         R.push({
-        //             questionId: c.questionId,
-        //             // survey_name: c.survey_name,
-        //             // survey_sections: [
-        //             //     {}
-        //             // )
-        //         })
-        //     } else {
-        //         R[index].survey_sections.push({survey_section_id: c.survey_section_id, section_name: c.section_name})
-        //         // R[index].survey_sections[R[index].survey_sections[R[index].survey_sections.length+1]].question.push({
-        //         //     question_name: c.remark,
-        //         //             question_id: c.active
-        //         // })
-        //         // R[index].survey_sections[R[index].survey_sections.length - 1].question.push({aa: 23})
-        //     }
-        // })
+        const rawData = data[1].reduce((r, c) => {
+            const R = [...r]
+            const index = R.findIndex(v => c.subQuestionId != null ? v.subQuestionId == c.subQuestionId : v.questionId == c.questionId)
+            if (index == -1) {
+                R.push({
+                    other: c.other,
+                    optionChoiceId: c.optionChoiceId,
+                    userId: c.userId,
+                    questionId: c.questionId,
+                    survey_headers_id: c.survey_headers_id,
+                    building_id: c.building_id,
+                    keyValue: c.keyValue,
+                    countryId: c.countryId,
+                    surveySectionId: c.surveySectionId,
+                    subQuestionId: c.subQuestionId,
+                    fileName: [c.img_name]
+                })
+            } else {
+                R[index].fileName.push(c.img_name)
+            }
+            return R
+        }, [])
 
         let ans = [{
                 survey_header_id: surveySections[0][0].survey_header_id,
@@ -153,7 +155,7 @@ const getQuestion = (req, res) => {
                         )
                     };
                 }),
-                answers: data[1],
+                answers: rawData,
                 amountOfDevice: data[2],
                 question_count: count
             },];
