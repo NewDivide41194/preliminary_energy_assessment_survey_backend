@@ -3,15 +3,11 @@ const response = require("../response/response");
 const {upload} = require("../middleware");
 const moment = require("moment");
 
-const addAnswer = (req, res) => {
-    // upload(req, res, err => {
-    // console.log("req.body is", req)
-    // console.log("req.file is", req.body.data[0])
+const addAnswer = (req, res) => { // upload(req, res, err => {
     let targetCount = req.body.data.length;
 
     let count = 0;
-    let queryLoop = new Promise((resolve, reject) => { 
-        console.log("req.body is", req.body.data[0])
+    let queryLoop = new Promise((resolve, reject) => {
         answerService.deleteAnswer(req.body.data[0].userId, req.body.data[0].survey_headers_id, req.body.data[0].building_id);
         req.body.data.map(async (data) => {
             let optionChoiceId = data.optionChoiceId;
@@ -29,16 +25,39 @@ const addAnswer = (req, res) => {
             let surveySectionId = data.surveySectionId;
             let fileName = data.fileName
 
-            try {
-                let addData = await answerService.addAnswer(other, optionChoiceId, userId, questionId, survey_headers_id, building_id, answeredDate, keyValue, countryId, subQuestionId, surveySectionId, fileName);
-                count++;
-                if (count == targetCount) 
-                    resolve({answeredCount: count});
-                
+            if (fileName == undefined) {
 
-            } catch (error) {
-                console.log("error add Answer ", error.toString());
+                try {
+                    let addData = await answerService.addAnswer(other, optionChoiceId, userId, questionId, survey_headers_id, building_id, answeredDate, keyValue, countryId, subQuestionId, surveySectionId);
+                    count++;
+                    if (count == targetCount) 
+                        resolve({answeredCount: count});
+                    
+
+
+                } catch (error) {
+                    console.log("error add Answer ", error.toString());
+                }
+            } else {
+                answerService.deleteImg(building_id)
+                for (let i = 0; i < fileName.length; i++) {
+                    answerService.addImg(fileName[i], questionId, building_id, subQuestionId)
+                }
+                try {
+                    let addData = await answerService.addAnswer(other, optionChoiceId, userId, questionId, survey_headers_id, building_id, answeredDate, keyValue, countryId, subQuestionId, surveySectionId);
+                    count++;
+                    if (count == targetCount) 
+                        resolve({answeredCount: count});
+                    
+
+
+                } catch (error) {
+                    console.log("error add Answer ", error.toString());
+                }
+
             }
+
+
         });
     });
 

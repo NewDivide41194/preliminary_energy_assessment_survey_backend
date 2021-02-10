@@ -39,7 +39,7 @@ const addBuilding = (buildingName, companyName, buildingTypeId, buildingType, ac
   `);
 };
 
-const getQuestion = ( buildingId) => {
+const getQuestion = (buildingId) => {
     let query = util.promisify(mypool.query).bind(mypool);
     return query(`
 select distinct o.option_choice_id as oc,t1.survey_header_id,t1.survey_name,t1.remark,t1.survey_section_id,t1.section_name,t1.question_id as primary_question,t1.question_name,t1.input_types_id,t1.option_groups_id,t1.question_key,
@@ -56,12 +56,19 @@ select distinct o.option_choice_id as oc,t1.survey_header_id,t1.survey_name,t1.r
     left join tbl_option_choices o on  sq.sub_question_id = o.sub_question_id ;
     
     
+    select ta.other,ta.option_choices_id as optionChoiceId,ta.users_id as userId,ta.questions_id as questionId,
+ta.survey_headers_id,ta.building_id,ta.keyValue,ta.country_id as countryId,ta.survey_section_id as surveySectionId,
+    ta.sub_question_id as subQuestionId,ti.img_name from PEA_Survey.tbl_answers as ta
+    left join PEA_Survey.tbl_img as ti on ta.building_id = ti.building_id and ta.questions_id = ti.question_id where ta.survey_headers_id = 1 and ta.building_id = ${buildingId};
     
-    select other,option_choices_id as optionChoiceId,users_id as userId,questions_id as questionId,file_name, survey_headers_id,building_id,keyValue,country_id as countryId,survey_section_id as surveySectionId,
-    sub_question_id as subQuestionId from tbl_answers where survey_headers_id = 1 and building_id = ${buildingId};
+
  select chiller,condenser,evaporator,cooling_tower,total_meeting_rooms from tbl_buildings where building_id= ${buildingId};
   `);
 };
+
+
+// select other,option_choices_id as optionChoiceId,users_id as userId,questions_id as questionId,file_name, survey_headers_id,building_id,keyValue,country_id as countryId,survey_section_id as surveySectionId,
+// sub_question_id as subQuestionId from tbl_answers where survey_headers_id = 1 and building_id = ${buildingId};
 
 // select * from tbl_questions as q left join tbl_option_choices as o  on q.question_id = o.questions_id
 //       left join tbl_survey_sections as s on s.survey_section_id = q.survey_sections_id left join tbl_survey_headers as h
@@ -71,6 +78,7 @@ select distinct o.option_choice_id as oc,t1.survey_header_id,t1.survey_name,t1.r
 //             select chiller,condenser,evaporator,cooling_tower,BMSInstalled from tbl_buildings where building_id=buildingId;
 
 const addAnswer = (other, optionChoiceId, userId, questionId, survey_headers_id, building_id, answeredDate, keyValue, countryId, subQuestionId, surveySectionId, fileName) => {
+
     let query = util.promisify(mypool.query).bind(mypool);
 
     return query(`INSERT INTO tbl_answers (other, option_choices_id, users_id, questions_id,survey_headers_id,building_id,answered_date,keyValue,country_id,sub_question_id,survey_section_id,file_name)  VALUES(?,?,?,?,?,?,?,?,?,?,?,?)`, [
@@ -86,12 +94,26 @@ const addAnswer = (other, optionChoiceId, userId, questionId, survey_headers_id,
         subQuestionId,
         surveySectionId,
         fileName
-    ]);
+    ])
 };
+
 
 const deleteAnswer = (userId, survey_headers_id, building_id) => {
     let query = util.promisify(mypool.query).bind(mypool)
     return query(`delete from tbl_answers where users_id = ${userId} and survey_headers_id = ${survey_headers_id} and  building_id = ${building_id}`)
+}
+
+const addImg = (fileName, questionId, building_id, subQuestionId) => {
+    let query = util.promisify(mypool.query).bind(mypool);
+
+    return query(`INSERT INTO PEA_Survey.tbl_img (img_name, question_id, building_id, sub_question_id)
+    VALUES ( '${fileName}', '${questionId}', ${building_id} , ${subQuestionId});`)
+}
+
+const deleteImg = (building_id) => {
+    let query = util.promisify(mypool.query).bind(mypool)
+
+    return query(`delete from PEA_Survey.tbl_img where building_id = ${building_id}`)
 }
 
 const getBuildingList = (userId) => {
@@ -109,5 +131,7 @@ module.exports = {
     getBuildingType,
     addAnswer,
     deleteAnswer,
-    getBuildingList
+    getBuildingList,
+    addImg,
+    deleteImg
 };

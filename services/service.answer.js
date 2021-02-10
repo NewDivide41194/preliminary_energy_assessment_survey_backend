@@ -8,7 +8,17 @@ const deleteAnswer = (userId, survey_headers_id, building_id) => {
     return surveydb.deleteAnswer(userId, survey_headers_id, building_id)
 }
 
+const addImg = (fileName, questionId, building_id, subQuestionId) => {
+    return surveydb.addImg(fileName, questionId, building_id, subQuestionId)
+}
+
+const deleteImg = (building_id) => {
+    return surveydb.deleteImg(building_id)
+}
+
 module.exports = {
     addAnswer,
-    deleteAnswer
+    deleteAnswer,
+    addImg,
+    deleteImg
 };

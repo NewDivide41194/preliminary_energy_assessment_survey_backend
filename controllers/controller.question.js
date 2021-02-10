@@ -9,6 +9,28 @@ const getQuestion = (req, res) => {
         const surveySections = Object.keys(groupArray(data[2][0].total_meeting_rooms > 0 ? data[0] : data[0].filter((v) => v.survey_section_id != 3), "survey_section_id")).map((v, k) => {
             return groupArray(data[0], "survey_section_id")[v];
         });
+
+        // const result = data[1].reduce((r, c) => { 
+        //     const R = [...r];
+        //     const index = R.findIndex((v) => v.questionId == c.questionId);
+        //     if (index === -1) {
+        //         R.push({
+        //             questionId: c.questionId,
+        //             // survey_name: c.survey_name,
+        //             // survey_sections: [
+        //             //     {}
+        //             // )
+        //         })
+        //     } else {
+        //         R[index].survey_sections.push({survey_section_id: c.survey_section_id, section_name: c.section_name})
+        //         // R[index].survey_sections[R[index].survey_sections[R[index].survey_sections.length+1]].question.push({
+        //         //     question_name: c.remark,
+        //         //             question_id: c.active
+        //         // })
+        //         // R[index].survey_sections[R[index].survey_sections.length - 1].question.push({aa: 23})
+        //     }
+        // })
+
         let ans = [{
                 survey_header_id: surveySections[0][0].survey_header_id,
                 survey_name: surveySections[0][0].survey_name,
@@ -110,7 +132,7 @@ const getQuestion = (req, res) => {
                                             (v3, k3) => {
                                                 const dataResult = [];
                                                 v1.map((c) => {
-                                                    const index = dataResult.find((v) => v.option_choice_id == c.oc );
+                                                    const index = dataResult.find((v) => v.option_choice_id == c.oc);
                                                     if (index == null || index == undefined) {
                                                         dataResult.push({option_choice_id: c.oc, option_choice_name: c.option_choice_name, sub_question_id: c.sub_question_id});
                                                     }
