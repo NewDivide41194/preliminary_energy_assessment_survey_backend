@@ -9,6 +9,7 @@ const addAnswer = (req, res) => { // upload(req, res, err => {
     let count = 0;
     let queryLoop = new Promise((resolve, reject) => {
         answerService.deleteAnswer(req.body.data[0].userId, req.body.data[0].survey_headers_id, req.body.data[0].building_id);
+        answerService.deleteImg(req.body.data[0].building_id)
         req.body.data.map(async (data) => {
             let optionChoiceId = data.optionChoiceId;
             let other = data.other;
@@ -25,7 +26,7 @@ const addAnswer = (req, res) => { // upload(req, res, err => {
             let surveySectionId = data.surveySectionId;
             let fileName = data.fileName
 
-            if (fileName == undefined) {
+            if (fileName == undefined || fileName == [null]) {
 
                 try {
                     let addData = await answerService.addAnswer(other, optionChoiceId, userId, questionId, survey_headers_id, building_id, answeredDate, keyValue, countryId, subQuestionId, surveySectionId);
@@ -39,7 +40,8 @@ const addAnswer = (req, res) => { // upload(req, res, err => {
                     console.log("error add Answer ", error.toString());
                 }
             } else {
-                answerService.deleteImg(building_id)
+                console.log("file name is", data.fileName)
+                // answerService.deleteImg(building_id)
                 for (let i = 0; i < fileName.length; i++) {
                     answerService.addImg(fileName[i], questionId, building_id, subQuestionId)
                 }
