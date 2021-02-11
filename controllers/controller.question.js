@@ -26,10 +26,10 @@ const getQuestion = (req, res) => {
                     countryId: c.countryId,
                     surveySectionId: c.surveySectionId,
                     subQuestionId: c.subQuestionId,
-                    fileName: [c.img_name]
+                    fileName: [c.fileName]
                 })
             } else {
-                R[index].fileName.push(c.img_name)
+                R[index].fileName.push(c.fileName)
             }
             return R
         }, [])
@@ -156,7 +156,7 @@ const getQuestion = (req, res) => {
                         )
                     };
                 }),
-                answers: data[1],
+                answers: rawData,
                 amountOfDevice: data[2],
                 question_count: count
             },];
