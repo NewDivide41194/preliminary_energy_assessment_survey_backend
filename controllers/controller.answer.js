@@ -29,7 +29,7 @@ const addAnswer = (req, res) => { // upload(req, res, err => {
             if (fileName == undefined ) {
 
                 try {
-                    let addData = await answerService.addAnswer(other, optionChoiceId, userId, questionId, survey_headers_id, building_id, answeredDate, keyValue, countryId, subQuestionId, surveySectionId);
+                    let addData = await answerService.addAnswer(other, optionChoiceId, userId, questionId, survey_headers_id, building_id, answeredDate, keyValue, countryId, subQuestionId , surveySectionId);
                     count++;
                     if (count == targetCount) 
                         resolve({answeredCount: count});
@@ -43,10 +43,10 @@ const addAnswer = (req, res) => { // upload(req, res, err => {
                 console.log("file name is", data.fileName)
                 // answerService.deleteImg(building_id)
                 for (let i = 0; i < fileName.length; i++) {
-                    answerService.addImg(fileName[i], questionId, building_id, subQuestionId, optionChoiceId)
+                    answerService.addImg(fileName[i], questionId, building_id, subQuestionId == null ? 200 : subQuestionId, optionChoiceId)
                 }
                 try {
-                    let addData = await answerService.addAnswer(other, optionChoiceId, userId, questionId, survey_headers_id, building_id, answeredDate, keyValue, countryId, subQuestionId, surveySectionId);
+                    let addData = await answerService.addAnswer(other, optionChoiceId, userId, questionId, survey_headers_id, building_id, answeredDate, keyValue, countryId, subQuestionId == null ? 200 : subQuestionId, surveySectionId);
                     count++;
                     if (count == targetCount) 
                         resolve({answeredCount: count});

@@ -59,7 +59,7 @@ select distinct o.option_choice_id as oc,t1.survey_header_id,t1.survey_name,t1.r
     select ta.other,ta.option_choices_id as optionChoiceId,ta.users_id as userId,ta.questions_id as questionId,
 ta.survey_headers_id,ta.building_id,ta.keyValue,ta.country_id as countryId,ta.survey_section_id as surveySectionId,
     ta.sub_question_id as subQuestionId,ti.img_name as fileName from PEA_Survey.tbl_answers as ta
-    left join PEA_Survey.tbl_img as ti on ta.building_id = ti.building_id and ta.questions_id = ti.question_id and ta.option_choices_id = ti.option_choices_id where ta.survey_headers_id = 1 and ta.building_id = ${buildingId};
+    left join PEA_Survey.tbl_img as ti on ta.building_id = ti.building_id and ta.questions_id = ti.question_id and ta.option_choices_id = ti.option_choices_id and ta.sub_question_id = ti.sub_question_id where ta.survey_headers_id = 1 and ta.building_id = ${buildingId};
     
 
  select chiller,condenser,evaporator,cooling_tower,total_meeting_rooms from tbl_buildings where building_id= ${buildingId};
