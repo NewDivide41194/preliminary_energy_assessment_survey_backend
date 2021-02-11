@@ -10,9 +10,10 @@ const getQuestion = (req, res) => {
             return groupArray(data[0], "survey_section_id")[v];
         });
 
+        // c.optionChoiceId != null ? c.optionChoiceId == v.optionChoiceId : c.subQuestionId != null ? v.subQuestionId == c.subQuestionId : v.questionId == c.questionId
         const rawData = data[1].reduce((r, c) => {
             const R = [...r]
-            const index = R.findIndex(v => c.subQuestionId != null ? v.subQuestionId == c.subQuestionId : v.questionId == c.questionId)
+            const index = R.findIndex(v => c.optionChoiceId == v.optionChoiceId)
             if (index == -1) {
                 R.push({
                     other: c.other,
@@ -155,7 +156,7 @@ const getQuestion = (req, res) => {
                         )
                     };
                 }),
-                answers: rawData,
+                answers: data[1],
                 amountOfDevice: data[2],
                 question_count: count
             },];

@@ -8,8 +8,8 @@ const deleteAnswer = (userId, survey_headers_id, building_id) => {
     return surveydb.deleteAnswer(userId, survey_headers_id, building_id)
 }
 
-const addImg = (fileName, questionId, building_id, subQuestionId) => {
-    return surveydb.addImg(fileName, questionId, building_id, subQuestionId)
+const addImg = (fileName, questionId, building_id, subQuestionId, optionChoiceId) => {
+    return surveydb.addImg(fileName, questionId, building_id, subQuestionId, optionChoiceId)
 }
 
 const deleteImg = (building_id) => {

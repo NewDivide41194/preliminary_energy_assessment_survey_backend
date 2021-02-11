@@ -26,7 +26,7 @@ const addAnswer = (req, res) => { // upload(req, res, err => {
             let surveySectionId = data.surveySectionId;
             let fileName = data.fileName
 
-            if (fileName == undefined || fileName == [null]) {
+            if (fileName == undefined ) {
 
                 try {
                     let addData = await answerService.addAnswer(other, optionChoiceId, userId, questionId, survey_headers_id, building_id, answeredDate, keyValue, countryId, subQuestionId, surveySectionId);
@@ -43,7 +43,7 @@ const addAnswer = (req, res) => { // upload(req, res, err => {
                 console.log("file name is", data.fileName)
                 // answerService.deleteImg(building_id)
                 for (let i = 0; i < fileName.length; i++) {
-                    answerService.addImg(fileName[i], questionId, building_id, subQuestionId)
+                    answerService.addImg(fileName[i], questionId, building_id, subQuestionId, optionChoiceId)
                 }
                 try {
                     let addData = await answerService.addAnswer(other, optionChoiceId, userId, questionId, survey_headers_id, building_id, answeredDate, keyValue, countryId, subQuestionId, surveySectionId);

@@ -8,14 +8,14 @@ const moment = require("moment");
 
 // Upload Image
 module.exports.uploadImage = (req, res, next) => {
-  console.log(req.body);
+  // console.log(req.body);
   try {
     const busboy = new Busboy({ headers: req.headers });
     // const randomString = nanoid();
     let randomFileName = "";
     busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
       const extension = filename.split(".")[filename.split(".").length - 1];
-      console.log("file name is", filename)
+      // console.log("file name is", filename)
       const fileName=moment(Date.now()).format("DD-MM-YYYY HH-mm")+filename
       const saveTo = path.join(
         path.join(__dirname, "../../", "preliminary_energy_assessment_survey_backend", "images", fileName)
