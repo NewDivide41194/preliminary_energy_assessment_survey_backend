@@ -13,7 +13,7 @@ const getQuestion = (req, res) => {
         // c.optionChoiceId != null ? c.optionChoiceId == v.optionChoiceId : c.subQuestionId != null ? v.subQuestionId == c.subQuestionId : v.questionId == c.questionId
         const rawData = data[1].reduce((r, c) => {
             const R = [...r]
-            const index = R.findIndex(v => c.optionChoiceId == v.optionChoiceId && c.subQuestionId == v.subQuestionId)
+            const index = R.findIndex(v => c.optionChoiceId == v.optionChoiceId && c.subQuestionId == v.subQuestionId && c.questionId== v.questionId)
             if (index == -1) {
                 R.push({
                     other: c.other,
