@@ -18,10 +18,6 @@ module.exports.uploadImage = (req, res, next) => {
                 if (! fs.existsSync(`images/${val}`)) {
                     fs.mkdirSync(`images/${val}`)
                 }
-        //     } catch (err) {
-        //         console.error(err)
-        //     }
-        // })
 
         busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
 
