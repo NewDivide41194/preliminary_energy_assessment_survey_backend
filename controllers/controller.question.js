@@ -13,7 +13,7 @@ const getQuestion = (req, res) => {
         // c.optionChoiceId != null ? c.optionChoiceId == v.optionChoiceId : c.subQuestionId != null ? v.subQuestionId == c.subQuestionId : v.questionId == c.questionId
         const rawData = data[1].reduce((r, c) => {
             const R = [...r]
-            const index = R.findIndex(v => c.optionChoiceId == v.optionChoiceId && c.subQuestionId == v.subQuestionId && c.questionId== v.questionId)
+            const index = R.findIndex(v => c.optionChoiceId == v.optionChoiceId && c.subQuestionId == v.subQuestionId &&  v.questionId == c.questionId )
             if (index == -1) {
                 R.push({
                     other: c.other,
@@ -26,10 +26,11 @@ const getQuestion = (req, res) => {
                     countryId: c.countryId,
                     surveySectionId: c.surveySectionId,
                     subQuestionId: c.subQuestionId,
-                    fileName: [c.fileName]
+                    fileName: c.fileName != null ? [c.fileName ] : []
                 })
             } else {
-                R[index].fileName.push(c.fileName)
+                c.fileName != null ? R[index].fileName.push(c.fileName) : []
+                // R[index].fileName.push(c.fileName)
             }
             return R
         }, [])
