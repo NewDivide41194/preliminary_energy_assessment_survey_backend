@@ -12,37 +12,27 @@ module.exports.uploadImage = (req, res, next) => {
         const busboy = new Busboy({headers: req.headers});
         // const randomString = nanoid();
         let randomFileName = "";
-        busboy.on("field", (fieldname, val) => { 
-          console.log("val is",val)
-            try {
-                if (! fs.existsSync(`images/${val}`)) {
-                    fs.mkdirSync(`images/${val}`)
-                }
-        //     } catch (err) {
-        //         console.error(err)
-        //     }
+        // busboy.on("field", (fieldname, val) => {
+        let val = req.params.building_id
+        try {
+            if (! fs.existsSync(`images/building_${val}`)) {
+                fs.mkdirSync(`images/building_${val}`)
+            }
+
+            busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
+
+                const extension = filename.split(".")[filename.split(".").length - 1];
+                const fileName = moment(Date.now()).format("DD-MM-YYYY HH-mm") + filename
+                const saveTo = path.join(path.join(__dirname, "../../", "preliminary_energy_assessment_survey_backend", `images/building_${val}`, fileName));
+                console.log("saveTo: ", saveTo)
+                file.pipe(fs.createWriteStream(saveTo));
+            });
+        } catch (err) {
+            console.error(err)
+        }
         // })
 
-        busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
-
-            const extension = filename.split(".")[filename.split(".").length - 1];
-            const fileName = moment(Date.now()).format("DD-MM-YYYY HH-mm") + filename
-            const saveTo = path.join(path.join(__dirname, "../../", "preliminary_energy_assessment_survey_backend", `images/${val}`, fileName));
-            console.log("saveTo: ", saveTo)
-            file.pipe(fs.createWriteStream(saveTo));
-        });
-        //         }
-            } catch (err) {
-                console.error(err)
-            }
-        })
-
         busboy.on("finish", () => {
-            // console.log("req is", req)
-            // req.apiRes({
-            // fileName: randomFileName,
-            // link: "/img/" + randomFileName,
-            // });
             res.json(response({success: true, message: "Success!"}));
         });
         req.pipe(busboy);
@@ -50,6 +40,12 @@ module.exports.uploadImage = (req, res, next) => {
         return next(error);
     }
 };
+
+// console.log("req is", req)
+// req.apiRes({
+// fileName: randomFileName,
+// link: "/img/" + randomFileName,
+// });
 
 module.exports.deleteImage = async (req, res, next) => {
     try {

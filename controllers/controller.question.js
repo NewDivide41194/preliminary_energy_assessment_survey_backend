@@ -27,6 +27,7 @@ const getQuestion = (req, res) => {
                     surveySectionId: c.surveySectionId,
                     subQuestionId: c.subQuestionId,
                     fileName: c.fileName != null ? [c.fileName ] : []
+                    // fileName: [c.fileName]
                 })
             } else {
                 c.fileName != null ? R[index].fileName.push(c.fileName) : []
