@@ -21,7 +21,11 @@ const getBuildingList = (req, res) => {
     const userId = req.params.userId
 
     buildingService.getBuildingList(userId).then((data) => {
-        res.json(response({success: true, payload: data}));
+        let ans = [{
+            survey_header: data[0],
+            building_info : data[1]
+        }]
+        res.json(response({success: true, payload: ans}));
     }).catch((err) => res.json(response({success: false, message: err})));
 };
 

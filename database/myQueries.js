@@ -125,8 +125,9 @@ const deleteImg = (building_id) => {
 
 const getBuildingList = (userId) => {
     let query = util.promisify(mypool.query).bind(mypool)
-    return query(`SELECT building_id,building_name,building_type_id,tbt.building_type as building_type_name FROM PEA_Survey.tbl_buildings as tb 
-    left join tbl_building_type as tbt on tb.building_type_id = tbt.id where user_id = ${userId};`)
+    return query(`SELECT survey_header_id,survey_name,remark FROM tbl_survey_headers;
+    SELECT building_id,building_name,building_type_id,tbt.building_type as building_type_name,tb.comment,tb.remark FROM PEA_Survey.tbl_buildings as tb 
+    left join tbl_building_type as tbt on tb.building_type_id = tbt.id where user_id =  ${userId};`)
 }
 
 module.exports = {
