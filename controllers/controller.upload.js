@@ -86,3 +86,20 @@ module.exports.getImage = (req, res, next) => {
         return next(error);
     }
 };
+
+module.exports.removeImg = (req, res) => {
+    try {
+        let fileName = req.body.fileName
+        let val = req.params.building_id
+
+        console.log("file name is =====>", fileName)
+        fileName.map(file => fs.unlink(`images/building_${val}/${file}`, (error) => {
+            if (error) 
+                // return next(Error("File not found!"));
+                return res.status(400).json({status: 'error', error: 'File not found!'});
+        }))
+        return res.json(response({success: true, message: "Success!"}));
+    } catch (error) {
+        return next(error);
+    }
+}
