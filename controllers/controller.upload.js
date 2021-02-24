@@ -13,7 +13,9 @@ module.exports.uploadImage = (req, res, next) => {
         // const randomString = nanoid();
         let randomFileName = "";
         // busboy.on("field", (fieldname, val) => {
+            
         let val = req.params.building_id
+        console.log(val);
         try {
             if (! fs.existsSync(`images/building_${val}`)) {
                 fs.mkdirSync(`images/building_${val}`)
@@ -23,6 +25,7 @@ module.exports.uploadImage = (req, res, next) => {
 
                 const extension = filename.split(".")[filename.split(".").length - 1];
                 const fileName = moment(Date.now()).format("DD-MM-YYYY HH-mm") + filename
+                console.log(fileName);
                 const saveTo = path.join(path.join(__dirname, "../../", "preliminary_energy_assessment_survey_backend", `images/building_${val}`, fileName));
                 console.log("saveTo: ", saveTo)
                 file.pipe(fs.createWriteStream(saveTo));
