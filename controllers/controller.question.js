@@ -26,7 +26,6 @@ const getQuestion = (req, res) => {
                     countryId: c.countryId,
                     surveySectionId: c.surveySectionId,
                     subQuestionId: c.subQuestionId,
-                    fileName: [c.fileName]
                 });
             } else if (c.fileName === null) {
                 R.push({
