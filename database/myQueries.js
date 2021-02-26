@@ -85,7 +85,7 @@ select distinct o.option_choice_id as oc,t1.survey_header_id,t1.survey_name,t1.r
 //             select chiller,condenser,evaporator,cooling_tower,BMSInstalled from tbl_buildings where building_id=buildingId;
 
 const addAnswer = (other, optionChoiceId, userId, questionId, survey_headers_id, building_id, answeredDate, keyValue, countryId, subQuestionId, surveySectionId, fileName) => {
-
+console.log('++++++',fileName);
     let query = util.promisify(mypool.query).bind(mypool);
 
     return query(`INSERT INTO tbl_answers (other, option_choices_id, users_id, questions_id,survey_headers_id,building_id,answered_date,keyValue,country_id,sub_question_id,survey_section_id,file_name)  VALUES(?,?,?,?,?,?,?,?,?,?,?,?)`, [

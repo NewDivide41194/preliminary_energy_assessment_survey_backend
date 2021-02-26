@@ -2,20 +2,20 @@ const { answerService } = require("../services");
 const response = require("../response/response");
 const { upload } = require("../middleware");
 const moment = require("moment");
-
+const {nanoid}=require("nanoid")
 const addAnswer = (req, res) => {
-  // console.log(upload(req,res,(err)=>{console.log("hello");}));
   upload(req, res, (err) => {
-    console.log(req.files.map((v) => v.filename));
-    let modifiedFiles = req.files;
+    // let modifiedFiles = req.files;
     let bodyData = JSON.parse(req.body.data);
     let targetCount = bodyData.length;
     let count = 0;
+    let j = 0;
     const userId = bodyData[0].userId;
     const survey_header_id = bodyData[0].survey_headers_id;
     const building_id = bodyData[0].building_id;
     let queryLoop = new Promise((resolve, reject) => {
       answerService.deleteAnswer(userId, survey_header_id, building_id);
+      answerService.deleteImg(bodyData[0].building_id);
       bodyData.map(async (data, k) => {
         let optionChoiceId = data.optionChoiceId;
         let other = data.other;
@@ -31,13 +31,15 @@ const addAnswer = (req, res) => {
         let countryId = data.countryId;
         let subQuestionId = data.subQuestionId;
         let surveySectionId = data.surveySectionId;
-        let j = 0;
+
         // let fileName = modifiedFiles;
 
         let fileName = data.fileName;
-        if (fileName == undefined || fileName === false) {
+
+        // fileName1?{
+        if (fileName === false || fileName === undefined) {
           try {
-            await answerService.addAnswer(
+            answerService.addAnswer(
               other,
               optionChoiceId,
               userId,
@@ -56,33 +58,25 @@ const addAnswer = (req, res) => {
             console.log("error add Answer ", error.toString());
           }
         } else {
-          // const fileLength = modifiedFiles.map((v1, k1) => v1.filename)[k].length
-          console.log(req.files.length);
-          answerService.deleteImg(bodyData[0].building_id);
-          for (i = 0; i < req.files.length; i++) {
-            answerService.addImg(
-              modifiedFiles.map((v1, k1) => v1.filename)[i],
-
-              questionId,
-              building_id,
-              subQuestionId,
-              optionChoiceId
-            );
-          }
-          // }
+          // console.log("99999999999",req.files);
           try {
-            await answerService.addAnswer(
-              other,
-              optionChoiceId,
-              userId,
-              questionId,
-              survey_headers_id,
-              building_id,
-              answeredDate,
-              keyValue,
-              countryId,
-              subQuestionId,
-              surveySectionId
+            fileName.map((v, k) =>
+              answerService.addAnswer(
+                other,
+                optionChoiceId,
+                userId,
+                questionId,
+                survey_headers_id,
+                building_id,
+                answeredDate,
+                keyValue,
+                countryId,
+                subQuestionId,
+                surveySectionId,
+                // req.files[0].filename
+                // nanoid()+moment(Date.now()).format("DD-mm-yy hh-mm-ss") + " "+v
+                // req.files.map(v=>v.filename).forEach(v=>v)
+              )
             );
             count++;
             if (count == targetCount) resolve({ answeredCount: count });
@@ -113,8 +107,8 @@ module.exports = {
 // const moment = require("moment");
 
 // const addAnswer = (req, res) => {
-//   // console.log(upload(req,res,(err)=>{console.log("hello");}));
-//   upload(req, res, (err) => {
+// // console.log(upload(req,res,(err)=>{console.log("hello");}));
+// upload(req, res, (err) => {
 //     let modifiedFiles = req.files;
 //     let bodyData = JSON.parse(req.body.data);
 //     let targetCount = bodyData.length;
@@ -203,9 +197,9 @@ module.exports = {
 //       .catch((err) =>
 //         res.json(response({ success: false, message: err.toString() }))
 //       );
-//   });
+// });
 // };
 
 // module.exports = {
-//   addAnswer,
+// addAnswer,
 // };
