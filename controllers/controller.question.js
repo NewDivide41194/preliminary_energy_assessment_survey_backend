@@ -26,8 +26,10 @@ const getQuestion = (req, res) => {
                     countryId: c.countryId,
                     surveySectionId: c.surveySectionId,
                     subQuestionId: c.subQuestionId,
+                    fileName: [c.fileName]
                 });
-            } else if (c.fileName === null) {
+            } 
+            else if (c.fileName === null) {
                 R.push({
                     other: c.other,
                     optionChoiceId: c.optionChoiceId,
@@ -40,7 +42,8 @@ const getQuestion = (req, res) => {
                     surveySectionId: c.surveySectionId,
                     subQuestionId: c.subQuestionId
                 });
-            } else {
+            }
+             else {
                 c.fileName != null ? R[index].fileName.push(c.fileName) : [];
                 // R[index].fileName.push(c.fileName)
             }
