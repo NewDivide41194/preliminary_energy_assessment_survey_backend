@@ -11,14 +11,11 @@ const addAnswer = (req, res) => {
     let bodyData = JSON.parse(req.body.data);
     let targetCount = bodyData.length;
     let count = 0;
-    console.log(bodyData);
-    console.log(bodyData.map((v2,k2)=>v2.fileName));
     const userId = bodyData[0].userId;
     const survey_header_id = bodyData[0].survey_headers_id;
     const building_id = bodyData[0].building_id;
     let queryLoop = new Promise((resolve, reject) => {
       answerService.deleteAnswer(userId, survey_header_id, building_id);
-      answerService.deleteImg(bodyData[0].building_id);
       bodyData.map(async (data, k) => {
         let optionChoiceId = data.optionChoiceId;
         let other = data.other;
@@ -59,19 +56,20 @@ const addAnswer = (req, res) => {
             console.log("error add Answer ", error.toString());
           }
         } else {
-          const fileLength = bodyData.filter((v) => v.fileName !== false)
-            .length;
-
-          if (k <= fileLength) {
-            console.log(modifiedFiles.map((v1, k1) => v1.filename)[k]);
+          // const fileLength = modifiedFiles.map((v1, k1) => v1.filename)[k].length
+          console.log(req.files.length);
+          answerService.deleteImg(bodyData[0].building_id);
+          for (i = 0; i < req.files.length; i++) {
             answerService.addImg(
-              modifiedFiles.map((v1, k1) => v1.filename)[k],
+              modifiedFiles.map((v1, k1) => v1.filename)[i],
+
               questionId,
               building_id,
               subQuestionId,
               optionChoiceId
             );
           }
+          // }
           try {
             await answerService.addAnswer(
               other,
