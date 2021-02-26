@@ -50,14 +50,15 @@ const addAnswer = (req, res) => { // console.log(upload(req,res,(err)=>{console.
                     }
                 } else {
                     for (let i = 0; i < fileName.length; i++, j ++) {
+                      console.log("file.length is =====>",fileName.length)
                         // console.log("j is",j)
                         // console.log("modifiedFiles name", modifiedFiles[j].filename,)
                         // console.log("slice testing =====>", modifiedFiles[j].filename.slice(13));
                         // console.log("file name map is", fileName.map(v => v ==  modifiedFiles[j].filename.slice(13)))
                         for (let k = 0; k < modifiedFiles.length; k++) {
-                          console.log("file name i is ===>", fileName[i])
-                          console.log("modified file k is ===>",modifiedFiles[k].filename.slice(13))
-                            if (fileName[i] == modifiedFiles[k].filename.slice(13)) {
+                          // console.log("file name i is ===>", fileName[i])
+                          // console.log("modified file k is ===>",modifiedFiles[k].filename.slice(13))
+                            if (fileName[i] == modifiedFiles[k].filename.slice(13) || fileName[i].slice(13) == modifiedFiles[k].filename.slice(13)) {
                                 answerService.addImg(modifiedFiles[k].filename, questionId, building_id, subQuestionId, optionChoiceId);
                             }
                         }
