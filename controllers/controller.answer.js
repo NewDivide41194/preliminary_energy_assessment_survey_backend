@@ -30,7 +30,7 @@ const addAnswer = (req, res) => { // console.log(upload(req,res,(err)=>{console.
                 let countryId = data.countryId;
                 let subQuestionId = data.subQuestionId;
                 let surveySectionId = data.surveySectionId;
-                
+
                 // let fileName = modifiedFiles;
 
                 let fileName = data.fileName;
@@ -49,13 +49,21 @@ const addAnswer = (req, res) => { // console.log(upload(req,res,(err)=>{console.
                         console.log("error add Answer ", error.toString());
                     }
                 } else {
-                    for (let i = 0; i < fileName.length; i++ , j++) {
-                      console.log("j is",j)
-                        console.log("modifiedFiles name", modifiedFiles[j].filename,)
-                        answerService.addImg(modifiedFiles[j].filename, questionId, building_id, subQuestionId, optionChoiceId);
+                    for (let i = 0; i < fileName.length; i++, j ++) {
+                        // console.log("j is",j)
+                        // console.log("modifiedFiles name", modifiedFiles[j].filename,)
+                        // console.log("slice testing =====>", modifiedFiles[j].filename.slice(13));
+                        // console.log("file name map is", fileName.map(v => v ==  modifiedFiles[j].filename.slice(13)))
+                        for (let k = 0; k < modifiedFiles.length; k++) {
+                          console.log("file name i is ===>", fileName[i])
+                          console.log("modified file k is ===>",modifiedFiles[k].filename.slice(13))
+                            if (fileName[i] == modifiedFiles[k].filename.slice(13)) {
+                                answerService.addImg(modifiedFiles[k].filename, questionId, building_id, subQuestionId, optionChoiceId);
+                            }
+                        }
                     }
                     try {
-                        await answerService.addAnswer(other, optionChoiceId, userId, questionId, survey_headers_id, building_id, answeredDate, keyValue, countryId, subQuestionId, surveySectionId);
+                        await answerService.addAnswer(other, optionChoiceId, userId, questionId, survey_headers_id, building_id, answeredDate, keyValue, countryId, subQuestionId, surveySectionId, fileName[0]);
                         count++;
                         if (count == targetCount) 
                             resolve({answeredCount: count});
