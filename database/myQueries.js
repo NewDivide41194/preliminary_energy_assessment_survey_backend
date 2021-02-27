@@ -58,15 +58,25 @@ select distinct o.option_choice_id as oc,t1.survey_header_id,t1.survey_name,t1.r
     left join tbl_option_choices o on  sq.sub_question_id = o.sub_question_id ;
     
     
-    select ta.other,ta.option_choices_id as optionChoiceId,ta.users_id as userId,ta.questions_id as questionId,
-    ta.survey_headers_id,ta.building_id,ta.keyValue,ta.country_id as countryId,ta.survey_section_id as surveySectionId,
-        ta.sub_question_id as subQuestionId,ti.img_name as fileName from PEA_Survey.tbl_answers as ta
-        left join PEA_Survey.tbl_img as ti on ta.building_id = ti.building_id and ta.questions_id = ti.question_id and ((ta.option_choices_id is null and ti.option_choices_id is null) or (ta.option_choices_id = ti.option_choices_id)) and ((ta.sub_question_id is null and ti.sub_question_id is null)||(ta.sub_question_id = ti.sub_question_id)) where ta.survey_headers_id = 1 and ta.building_id = ${buildingId};
+
+select other,option_choices_id as optionChoiceId,users_id as userId,questions_id as questionId,file_name as fileName, survey_headers_id,building_id,keyValue,country_id as countryId,survey_section_id as surveySectionId,survey_headers_id,
+sub_question_id as subQuestionId from tbl_answers where survey_headers_id = 1 and building_id = ${buildingId}; 
+   
     
 
  select chiller,condenser,evaporator,cooling_tower,total_meeting_rooms from tbl_buildings where building_id= ${buildingId};
   `);
 };
+
+// 27.2.2021
+
+// select ta.other,ta.option_choices_id as optionChoiceId,ta.users_id as userId,ta.questions_id as questionId,
+// ta.survey_headers_id,ta.building_id,ta.keyValue,ta.country_id as countryId,ta.survey_section_id as surveySectionId,
+//     ta.sub_question_id as subQuestionId,ti.img_name as fileName from PEA_Survey.tbl_answers as ta
+//     left join PEA_Survey.tbl_img as ti on ta.building_id = ti.building_id and ta.questions_id = ti.question_id and ((ta.option_choices_id is null and ti.option_choices_id is null) or (ta.option_choices_id = ti.option_choices_id)) and ((ta.sub_question_id is null and ti.sub_question_id is null)||(ta.sub_question_id = ti.sub_question_id)) where ta.survey_headers_id = 1 and ta.building_id = ${buildingId};
+ 
+
+// 
 
 
 // select ta.other,ta.option_choices_id as optionChoiceId,ta.users_id as userId,ta.questions_id as questionId,
