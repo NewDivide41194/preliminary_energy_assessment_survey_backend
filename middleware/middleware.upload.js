@@ -1,5 +1,4 @@
 const multer = require("multer");
-const moment = require("moment");
 
 const storage = multer.diskStorage({
   destination: function (req, file, callback) {
@@ -14,7 +13,7 @@ const storage = multer.diskStorage({
       }
     }
 
-    callback(null, Date.now() + "_" + ID + "_" + file.originalname);
+    callback(null,ID + "_" + file.originalname);
   },
 });
 

@@ -9,7 +9,6 @@ const getQuestion = (req, res) => {
         const surveySections = Object.keys(groupArray(data[2][0].total_meeting_rooms > 0 ? data[0] : data[0].filter((v) => v.survey_section_id != 3), "survey_section_id")).map((v, k) => {
             return groupArray(data[0], "survey_section_id")[v];
         });
-
         // c.optionChoiceId != null ? c.optionChoiceId == v.optionChoiceId : c.subQuestionId != null ? v.subQuestionId == c.subQuestionId : v.questionId == c.questionId
         const rawData = data[1].reduce((r, c) => {
             const R = [...r];
