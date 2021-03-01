@@ -14,6 +14,8 @@ const addAnswer = (req, res) => {
     const building_id = bodyData[0].building_id;
     let queryLoop = new Promise((resolve, reject) => {
       answerService.deleteAnswer(userId, survey_header_id, building_id);
+      answerService.deleteImg(bodyData[0].building_id);
+
       bodyData.map(async (data, k) => {
         let optionChoiceId = data.optionChoiceId;
         let other = data.other;
@@ -55,75 +57,45 @@ const addAnswer = (req, res) => {
             console.log("error add Answer ", error.toString());
           }
         } else {
-          if (data.file) {
-            data.fileName.map((v1, k1) => {
-              const file_name = req.body.id[k] + "_" + v1;
-              try {
-                answerService.addAnswer(
-                  other,
-                  optionChoiceId,
-                  userId,
-                  questionId,
-                  survey_headers_id,
-                  building_id,
-                  answeredDate,
-                  keyValue,
-                  countryId,
-                  subQuestionId,
-                  surveySectionId,
-                  file_name
-                );
-                count++;
-                if (count == targetCount) resolve({ answeredCount: count });
-              } catch (error) {
-                console.log("error add Answer ", error.toString());
-              }
-            });
-          } else {
-            data.fileName.map((v1, k1) => {
-              const file_name = v1;
-              try {
-                answerService.addAnswer(
-                  other,
-                  optionChoiceId,
-                  userId,
-                  questionId,
-                  survey_headers_id,
-                  building_id,
-                  answeredDate,
-                  keyValue,
-                  countryId,
-                  subQuestionId,
-                  surveySectionId,
-                  file_name
-                );
-                count++;
-                if (count == targetCount) resolve({ answeredCount: count });
-              } catch (error) {
-                console.log("error add Answer ", error.toString());
-              }
-            });
-          }
+          console.log(req.files);
+          data.fileName.map((v1, k1) => {
+            try {
+              answerService.addAnswer(
+                other,
+                optionChoiceId,
+                userId,
+                questionId,
+                survey_headers_id,
+                building_id,
+                answeredDate,
+                keyValue,
+                countryId,
+                subQuestionId,
+                surveySectionId,
+                req.body.id[k] + "_" + v1                
+              );
+              count++;
+              if (count == targetCount) resolve({ answeredCount: count });
+            } catch (error) {
+              console.log("error add Answer ", error.toString());
+            }
+          });
         }
       });
     });
     queryLoop.then(res.json(response({ success: true, payload: null })));
-    answerService.getAllAnswers()
-
   });
 };
 
-module.exports = {
-  addAnswer,
-};
+module.exports = { addAnswer };
 // const { answerService } = require("../services");
 // const response = require("../response/response");
 // const { upload } = require("../middleware");
 // const moment = require("moment");
 
 // const addAnswer = (req, res) => {
-// // console.log(upload(req,res,(err)=>{console.log("hello");}));
-// upload(req, res, (err) => {
+//   // console.log(upload(req,res,(err)=>{console.log("hello");}));
+//   upload(req, res, (err) => {
 //     // console.log(req.files.map((v) => v.filename));
 //     let modifiedFiles = req.files;
 //     let bodyData = JSON.parse(req.body.data);
@@ -230,9 +202,9 @@ module.exports = {
 //       .catch((err) =>
 //         res.json(response({ success: false, message: err.toString() }))
 //       );
-// });
+//   });
 // };
 
 // module.exports = {
-// addAnswer,
+//   addAnswer,
 // };
