@@ -108,7 +108,7 @@ const addAnswer = (req, res) => {
       });
     });
     queryLoop.then(res.json(response({ success: true, payload: null })));
-    answerService.getAllAnswers()
+    answerService.deleteFiles()
 
   });
 };
