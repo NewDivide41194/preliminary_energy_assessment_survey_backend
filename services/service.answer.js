@@ -67,12 +67,10 @@ const deleteFiles = () => {
       // console.log(InequalFiles);
       if (InequalFiles.length > 0) {
         const fileDir = (fileName) => path.join("./" + DIR, fileName);
-
         InequalFiles.map((v) => fs.unlinkSync(fileDir(v)));
       }
     });
   });
-  return console.log("Hello");
 };
 
 module.exports = {
