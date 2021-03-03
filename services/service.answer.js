@@ -1,5 +1,4 @@
 const { surveydb } = require("../database");
-const { answerService } = require("../services");
 const fs = require("fs");
 const path = require("path");
 
@@ -53,32 +52,24 @@ const addImg = (
   );
 };
 
-const getAllAnswers = () => {
+const deleteFiles = () => {
   const DIR = "public/uploads";
   surveydb.getAllAnswers().then((data) => {
-    console.log("Delete");
+    // console.log("Delete");
     fs.readdir("./" + DIR, (err, files) => {
       if (err) {
         console.log(err);
       }
+    //   console.log("files is is is",files)
       // console.log(files,data.map(v=>v.file_name));
       const dataFile = data.map((v) => v.file_name);
       InequalFiles = files.filter((val) => !dataFile.includes(val));
-      console.log(InequalFiles);
+      // console.log(InequalFiles);
       if (InequalFiles.length > 0) {
-        const fileDir =(fileName)=> path.join("./" + DIR, fileName);
+        const fileDir = (fileName) => path.join("./" + DIR, fileName);
 
         InequalFiles.map((v) => fs.unlinkSync(fileDir(v)));
       }
-      // files.forEach((file) => {
-      //   const fileDir = path.join("./" + DIR, file);
-      //     console.log(file,data[key].file_name);
-
-      // //   if (file !== v.file_name) {
-
-      // //     // fs.unlinkSync(fileDir);
-      // //   }
-      // });
     });
   });
   return console.log("Hello");
@@ -88,5 +79,5 @@ module.exports = {
   addAnswer,
   deleteAnswer,
   addImg,
-  getAllAnswers,
+  deleteFiles,
 };

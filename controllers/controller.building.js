@@ -52,7 +52,8 @@ const addBuilding = (req, res) => { // console.log("req.body is",moment(Date.now
     // const BMSInstalled = req.body.BMSInstalled;
     // const totalRestaurant = req.body.totalRestaurant;
     const avgPeople = req.body.avgPeople;
-    const totalMeetingRooms = req.body.totalMeetingRooms;
+    const totalMeetingRooms = req.body.totalMeetingRooms == undefined ? null : req.body.totalMeetingRooms;
+    console.log("totalMeetingRooms is ===>",totalMeetingRooms)
 
     buildingService.addBuilding(buildingName, companyName, buildingTypeId, buildingType, active, createdDate, address, postalCode, country, comment, userId, surveyHeadersId, chiller, condenser, evaporator, coolingTower, avgPeople, totalMeetingRooms).then((data) => {
         res.json(response({success: true, message: "Inserted!", payload: data}));
