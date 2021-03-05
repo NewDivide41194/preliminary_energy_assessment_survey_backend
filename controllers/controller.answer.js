@@ -48,10 +48,14 @@ const addAnswer = (req, res) => {
                 } else {
                     // console.log("req.files is ===>", req.files);
                     data.fileName.map((v1, k1) => {
+                        
                         try {
-                            answerService.addAnswer(other, optionChoiceId, userId, questionId, survey_headers_id, building_id, answeredDate, keyValue, countryId, subQuestionId, surveySectionId, typeof req.body.id == "string" ? req.body.id + "_" + v1 : req.body.id[k] + "_" + v1);
+
+                            console.log("req.body.id[k] ", req.body.id == undefined)
+                            console.log("v1 is ",v1)
+                            answerService.addAnswer(other, optionChoiceId, userId, questionId, survey_headers_id, building_id, answeredDate, keyValue, countryId, subQuestionId, surveySectionId, typeof req.body.id == "string" ? req.body.id + "_" + v1 : req.body.id == undefined ? v1 : req.body.id[k] + "_" + v1);
                             // console.log("k is", k1)
-                            console.log("req.body.id[k] ", req.body.id[k] )
+                            
                             count++;
                             if (count == targetCount) 
                                 resolve({answeredCount: count});
@@ -59,14 +63,14 @@ const addAnswer = (req, res) => {
 
 
                         } catch (error) {
-                            console.log("error add Answer ", error.toString());
+                            console.log("error add Answer with Img ", error.toString());
                         }
                     });
                 }
             });
         });
         queryLoop.then(res.json(response({success: true, payload: null})));
-        answerService.deleteFiles()
+        answerService.deleteFiles(building_id)
 
     });
 };

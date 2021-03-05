@@ -36,9 +36,9 @@ const getBuildingType = (buildinId) => {
   return query(`SELECT * FROM PEA_Survey.tbl_building_type;`);
 };
 
-const getAllAnswers = (buildinId) => {
+const getAllAnswers = (building_id) => {
   let query = util.promisify(mypool.query).bind(mypool);
-  return query(`SELECT * FROM PEA_Survey.tbl_answers;`);
+  return query(`SELECT * FROM PEA_Survey.tbl_answers where building_id = ${building_id};`);
 };
 
 const addBuilding = (
@@ -130,7 +130,7 @@ const addAnswer = (
   surveySectionId,
   fileName
 ) => {
-  console.log("++++++", fileName);
+  // console.log("++++++", fileName);
   let query = util.promisify(mypool.query).bind(mypool);
 
   return query(
