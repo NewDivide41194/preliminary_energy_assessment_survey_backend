@@ -50,12 +50,11 @@ const addAnswer = (req, res) => {
                     data.fileName.map((v1, k1) => {
                         
                         try {
-
-                            console.log("req.body.id[k] ", req.body.id == undefined)
-                            console.log("v1 is ",v1)
-                            answerService.addAnswer(other, optionChoiceId, userId, questionId, survey_headers_id, building_id, answeredDate, keyValue, countryId, subQuestionId, surveySectionId, typeof req.body.id == "string" ? req.body.id + "_" + v1 : req.body.id == undefined ? v1 : req.body.id[k] + "_" + v1);
+                           
+                            console.log("v1 length is ===>",v1)
+                            answerService.addAnswer(other, optionChoiceId, userId, questionId, survey_headers_id, building_id, answeredDate, keyValue, countryId, subQuestionId, surveySectionId, v1.length > 41 ? v1 : typeof req.body.id == "string" ? req.body.id + "_" + v1  : req.body.id[k] + "_" + v1);
                             // console.log("k is", k1)
-                            
+                            console.log("req.body.id[k] ", req.body.id )
                             count++;
                             if (count == targetCount) 
                                 resolve({answeredCount: count});
