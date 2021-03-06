@@ -39,17 +39,12 @@ const addAnswer = (req, res) => {
                         count++;
                         if (count == targetCount) 
                             resolve({answeredCount: count});
-                        
-
-
                     } catch (error) {
                         console.log("error add Answer ", error.toString());
                     }
-                } else { // console.log("req.files is ===>", req.files);
+                } else { 
                     data.fileName.map((v1, k1) => {
-
                         try {
-
                             console.log("v1 length is ===>", v1.slice(8).startsWith("-"))
                             answerService.addAnswer(other, optionChoiceId, userId, questionId, survey_headers_id, building_id, answeredDate, keyValue, countryId, subQuestionId, surveySectionId, v1.length > 41 && v1.slice(8).startsWith("-") ? v1 : typeof req.body.id == "string" ? req.body.id + "_" + v1 : req.body.id[k] + "_" + v1);
                             // console.log("k is", k1)
@@ -57,9 +52,6 @@ const addAnswer = (req, res) => {
                             count++;
                             if (count == targetCount) 
                                 resolve({answeredCount: count});
-                            
-
-
                         } catch (error) {
                             console.log("error add Answer with Img ", error.toString());
                         }

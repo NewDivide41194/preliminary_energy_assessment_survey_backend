@@ -17,16 +17,15 @@ const addImg = (fileName, questionId, building_id, subQuestionId, optionChoiceId
 const deleteFiles = (building_id) => {
   console.log("building id is",building_id)
     const DIR = `public/uploads/${building_id}/`;
-    surveydb.getAllAnswers(building_id).then((data) => { // console.log("Delete");
+    surveydb.getAllAnswers(building_id).then((data) => { 
         fs.readdir("./" + DIR, (err, files) => {
             if (err) {
                 console.log(err);
-            }
-            // console.log("files is is is",files)
-            // console.log(files,data.map(v=>v.file_name));
+            }          
             const dataFile = data.map((v) => v.file_name);
             InequalFiles = files.filter((val) => ! dataFile.includes(val));
-            // console.log(InequalFiles);
+            console.log(dataFile);
+            console.log(InequalFiles);
             if (InequalFiles.length > 0) {
                 const fileDir = (fileName) => path.join("./" + DIR, fileName);
                 InequalFiles.map((v) => fs.unlinkSync(fileDir(v)));
