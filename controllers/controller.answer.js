@@ -42,16 +42,12 @@ const addAnswer = (req, res) => {
                         count++;
                         if (count == targetCount) 
                             resolve({answeredCount: count});
-                        
-
-
                     } catch (error) {
                         console.log("error add Answer ", error.toString());
                     }
                 } else {
 
                     data.fileName.map((v1, k1) => {
-
                         try {
 
                             v1.length > 41 && v1.slice(8).startsWith("-") ? i : j == k ? i++ : i;
@@ -61,9 +57,6 @@ const addAnswer = (req, res) => {
                             count++;
                             if (count == targetCount) 
                                 resolve({answeredCount: count});
-                            
-
-
                         } catch (error) {
                             console.log("error add Answer with Img ", error.toString());
                         }
