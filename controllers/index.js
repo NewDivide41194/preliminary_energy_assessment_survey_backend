@@ -4,6 +4,7 @@ const buildingController = require("./controller.building");
 const questionController = require("./controller.question");
 const imageController = require("./controller.upload");
 const answerController = require("./controller.answer");
+const adminController = require("./controller.admin")
 
 module.exports = {
   userController,
@@ -12,4 +13,5 @@ module.exports = {
   questionController,
   imageController,
   answerController,
+  adminController
 };

@@ -6,6 +6,7 @@ const buildingRoute = require("./routes.building");
 const questionRoute = require("./routes.question");
 const imageRoute = require("./routes.image");
 const answerRoute = require("./routes.answer");
+const adminRoute = require("./routes.admin")
 
 const { routeMiddleware } = require("../middleware/middleware.authorization");
 
@@ -17,5 +18,6 @@ router.use("/building", buildingRoute);
 router.use("/question", questionRoute);
 router.use("/image", imageRoute);
 router.use("/answer", answerRoute);
+router.use("/admin", adminRoute)
 
 module.exports = router;
