@@ -16,9 +16,13 @@ const addBuilding = (buildingName, companyName, buildingTypeId, buildingType, ac
     return surveydb.addBuilding(buildingName, companyName, buildingTypeId, buildingType, active, createdDate, address, postalCode, country, comment, userId, surveyHeadersId, chiller, condenser, evaporator, coolingTower, avgPeople, totalMeetingRooms);
 };
 
+const getAllBuilding = (building_id) => {
+    return surveydb.getAllBuilding();
+};
 module.exports = {
     getBuilding,
     addBuilding,
     getBuildingList,
+    getAllBuilding,
     getBuildingType
 };

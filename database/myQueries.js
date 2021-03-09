@@ -38,7 +38,9 @@ const getBuildingType = (buildinId) => {
 
 const getAllAnswers = (building_id) => {
   let query = util.promisify(mypool.query).bind(mypool);
-  return query(`SELECT * FROM PEA_Survey.tbl_answers where building_id = ${building_id};`);
+  return query(
+    `SELECT * FROM PEA_Survey.tbl_answers where building_id = ${building_id};`
+  );
 };
 
 const addBuilding = (
@@ -187,6 +189,14 @@ const getBuildingList = (userId) => {
     left join tbl_building_type as tbt on tb.building_type_id = tbt.id where user_id =  ${userId};`);
 };
 
+const getAllBuilding = () => {
+  let query = util.promisify(mypool.query).bind(mypool);
+  return query(
+    `SELECT building_id,building_name,tbt.building_type as building_type_name,tbu.user_name as createdBy,tb.created_date FROM PEA_Survey.tbl_buildings as tb 
+    left join tbl_login_users as tbu on tb.created_by=tbu.login_user_id
+left join tbl_building_type as tbt on tb.building_type_id = tbt.id`
+  );
+};
 
 // for admin
 
@@ -206,13 +216,15 @@ const getAnswerForAdmin = () => {
     left join tbl_option_choices o on  sq.sub_question_id = o.sub_question_id ;
     
 select other,option_choices_id as optionChoiceId,users_id as userId,questions_id as questionId,file_name as fileName, survey_headers_id,building_id,keyValue,country_id as countryId,survey_section_id as surveySectionId,survey_headers_id,
-sub_question_id as subQuestionId from tbl_answers where survey_headers_id = 1`)
-}
+sub_question_id as subQuestionId from tbl_answers where survey_headers_id = 1`);
+};
 
 const isAdmin = (user_id) => {
-  let query = util.promisify(mypool.query).bind(mypool)
-  return query(`SELECT user_level_id, user_name FROM tbl_login_users WHERE login_user_id = ${user_id}`)
-}
+  let query = util.promisify(mypool.query).bind(mypool);
+  return query(
+    `SELECT user_level_id, user_name FROM tbl_login_users WHERE login_user_id = ${user_id}`
+  );
+};
 
 module.exports = {
   addUser,
@@ -228,5 +240,6 @@ module.exports = {
   deleteImg,
   getAllAnswers,
   getAnswerForAdmin,
-  isAdmin
+  isAdmin,
+  getAllBuilding
 };
