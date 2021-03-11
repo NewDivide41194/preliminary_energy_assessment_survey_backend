@@ -16,7 +16,6 @@ const addAnswer = (req, res) => {
 
         let queryLoop = new Promise((resolve, reject) => {
             answerService.deleteAnswer(userId, survey_header_id, building_id);
-            // answerService.deleteImg(bodyData[0].building_id);
 
             bodyData.map(async (data, k) => {
                 let optionChoiceId = data.optionChoiceId;
@@ -32,7 +31,6 @@ const addAnswer = (req, res) => {
                 let surveySectionId = data.surveySectionId;
                 let j = k
 
-                // let fileName = modifiedFiles;
 
                 let fileName = data.fileName;
 
@@ -53,7 +51,6 @@ const addAnswer = (req, res) => {
                             v1.length > 41 && v1.slice(8).startsWith("-") ? i : j == k ? i++ : i;
 
                             answerService.addAnswer(other, optionChoiceId, userId, questionId, survey_headers_id, building_id, answeredDate, keyValue, countryId, subQuestionId, surveySectionId, v1.length > 41 && v1.slice(8).startsWith("-") ? v1 : typeof req.body.id == "string" ? req.body.id + "_" + v1 :  req.body.id[i - 1] + "_" + v1 , j++);
-                            console.log("body.id k is", req.body.id[i - 1] + "_" + v1 )
                             count++;
                             if (count == targetCount) 
                                 resolve({answeredCount: count});
