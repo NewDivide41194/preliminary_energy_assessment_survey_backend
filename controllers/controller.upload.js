@@ -10,9 +10,7 @@ const moment = require("moment");
 module.exports.uploadImage = (req, res, next) => {
     try {
         const busboy = new Busboy({headers: req.headers});
-        // const randomString = nanoid();
         let randomFileName = "";
-        // busboy.on("field", (fieldname, val) => {
             
         let val = req.params.building_id
         console.log(val);

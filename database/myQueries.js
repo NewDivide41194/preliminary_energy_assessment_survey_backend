@@ -70,6 +70,7 @@ const addBuilding = (
 };
 
 const getQuestion = (buildingId) => {
+  console.log(buildingId);
   let query = util.promisify(mypool.query).bind(mypool);
   return query(`
 select distinct o.option_choice_id as oc,t1.survey_header_id,t1.survey_name,t1.remark,t1.survey_section_id,t1.section_name,t1.question_id as primary_question,t1.question_name,t1.input_types_id,t1.option_groups_id,t1.question_key,
@@ -241,5 +242,5 @@ module.exports = {
   getAllAnswers,
   getAnswerForAdmin,
   isAdmin,
-  getAllBuilding
+  getAllBuilding,
 };
