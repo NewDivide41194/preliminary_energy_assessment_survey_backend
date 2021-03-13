@@ -18,7 +18,6 @@ const getQuestion = (req, res) => {
       ).map((v, k) => {
         return groupArray(data[0], "survey_section_id")[v];
       });
-      // c.optionChoiceId != null ? c.optionChoiceId == v.optionChoiceId : c.subQuestionId != null ? v.subQuestionId == c.subQuestionId : v.questionId == c.questionId
       const rawData = data[1].reduce((r, c) => {
         const R = [...r];
         const index = R.findIndex(
@@ -56,7 +55,6 @@ const getQuestion = (req, res) => {
           });
         } else {
           c.fileName != null ? R[index].fileName.push(c.fileName) : [];
-          // R[index].fileName.push(c.fileName)
         }
         return R;
       }, []);
