@@ -85,7 +85,7 @@ select distinct o.option_choice_id as oc,t1.survey_header_id,t1.survey_name,t1.r
     left join tbl_units u on sq.unit_id = u.unit_id
     left join tbl_option_choices o on  sq.sub_question_id = o.sub_question_id ;
     
-select other,option_choices_id as optionChoiceId,users_id as userId,questions_id as questionId,file_name as fileName, survey_headers_id,building_id,keyValue,country_id as countryId,survey_section_id as surveySectionId,survey_headers_id,
+select other,option_choices_id as optionChoiceId,answered_date as answeredDate,users_id as userId,questions_id as questionId,file_name as fileName, survey_headers_id,building_id,keyValue,country_id as countryId,survey_section_id as surveySectionId,survey_headers_id,
 sub_question_id as subQuestionId from tbl_answers where survey_headers_id = 1 and building_id = ${buildingId}; 
    
      select chiller,condenser,evaporator,cooling_tower,total_meeting_rooms from tbl_buildings where building_id= ${buildingId};

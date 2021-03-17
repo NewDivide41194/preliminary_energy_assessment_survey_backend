@@ -1,6 +1,7 @@
 const { questionService } = require("../services");
 const response = require("../response/response");
 var groupArray = require("group-array");
+const moment=require ("moment")
 
 const getQuestion = (req, res) => {
   let count = 0;
@@ -21,6 +22,7 @@ const getQuestion = (req, res) => {
         return groupArray(data[0], "survey_section_id")[v];
       });
       const rawData = data[1].reduce((r, c) => {
+        console.log(c);
         const R = [...r];
         const index = R.findIndex(
           (v) =>
@@ -41,6 +43,7 @@ const getQuestion = (req, res) => {
             surveySectionId: c.surveySectionId,
             subQuestionId: c.subQuestionId,
             fileName: [c.fileName],
+            answeredDate:moment(c.answeredDate).format("YYYY-MMM-DD HH:mm")
           });
         } else if (c.fileName === null) {
           R.push({
@@ -54,6 +57,7 @@ const getQuestion = (req, res) => {
             countryId: c.countryId,
             surveySectionId: c.surveySectionId,
             subQuestionId: c.subQuestionId,
+            answeredDate:moment(c.answeredDate).format("YYYY-MMM-DD HH:mm")
           });
         } else {
           c.fileName != null ? R[index].fileName.push(c.fileName) : [];
