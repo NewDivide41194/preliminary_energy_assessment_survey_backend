@@ -5,8 +5,10 @@ var groupArray = require("group-array");
 const getQuestion = (req, res) => {
   let count = 0;
   const buildingId = req.params.buildingId;
+  const userId = req.params.userId;
+
   questionService
-    .getQuestion(buildingId)
+    .getQuestion(userId,buildingId)
     .then((data) => {
       const surveySections = Object.keys(
         groupArray(
@@ -229,6 +231,7 @@ const getQuestion = (req, res) => {
           }),
           answers: rawData,
           amountOfDevice: data[2],
+          userInfo:data[3],
           question_count: count,
         },
       ];

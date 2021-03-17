@@ -1,7 +1,7 @@
 const {surveydb} = require("../database");
 
-const getQuestion = (buildingId) => { 
-    return surveydb.getQuestion(buildingId)
+const getQuestion = (userId,buildingId) => { 
+    return surveydb.getQuestion(userId,buildingId)
 };
 
 module.exports = {

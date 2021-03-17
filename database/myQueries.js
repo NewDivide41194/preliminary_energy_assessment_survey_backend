@@ -69,7 +69,7 @@ const addBuilding = (
   `);
 };
 
-const getQuestion = (buildingId) => {
+const getQuestion = (userId, buildingId) => {
   let query = util.promisify(mypool.query).bind(mypool);
   return query(`
 select distinct o.option_choice_id as oc,t1.survey_header_id,t1.survey_name,t1.remark,t1.survey_section_id,t1.section_name,t1.question_id as primary_question,t1.question_name,t1.input_types_id,t1.option_groups_id,t1.question_key,
@@ -88,9 +88,9 @@ select distinct o.option_choice_id as oc,t1.survey_header_id,t1.survey_name,t1.r
 select other,option_choices_id as optionChoiceId,users_id as userId,questions_id as questionId,file_name as fileName, survey_headers_id,building_id,keyValue,country_id as countryId,survey_section_id as surveySectionId,survey_headers_id,
 sub_question_id as subQuestionId from tbl_answers where survey_headers_id = 1 and building_id = ${buildingId}; 
    
-    
+     select chiller,condenser,evaporator,cooling_tower,total_meeting_rooms from tbl_buildings where building_id= ${buildingId};
 
- select chiller,condenser,evaporator,cooling_tower,total_meeting_rooms from tbl_buildings where building_id= ${buildingId};
+     select user_name as userName,email from tbl_login_users where login_user_id=${userId}
   `);
 };
 
