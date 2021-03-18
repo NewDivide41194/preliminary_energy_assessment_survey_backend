@@ -21,7 +21,7 @@ const addAnswer = (req, res) => {
       percent,
     });
     if (percent === 100) clearInterval(interval);
-  }, 100);
+  }, 200);
   console.log(percent);
 
   upload(req, res, (err) => {
