@@ -43,7 +43,7 @@ const getQuestion = (req, res) => {
             surveySectionId: c.surveySectionId,
             subQuestionId: c.subQuestionId,
             fileName: [c.fileName],
-            answeredDate:c.answeredDate
+            answeredDate:moment(c.answeredDate).format("YYYY-MM-DD HH:mm:ss")
           });
         } else if (c.fileName === null) {
           R.push({
@@ -57,7 +57,7 @@ const getQuestion = (req, res) => {
             countryId: c.countryId,
             surveySectionId: c.surveySectionId,
             subQuestionId: c.subQuestionId,
-            answeredDate:moment(c.answeredDate).format("YYYY-MMM-DD HH:mm")
+            answeredDate:moment(c.answeredDate).format("YYYY-MM-DD HH:mm:ss")
           });
         } else {
           c.fileName != null ? R[index].fileName.push(c.fileName) : [];
