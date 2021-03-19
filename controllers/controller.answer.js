@@ -45,10 +45,7 @@ const addAnswer = (req, res) => {
         let survey_headers_id = data.survey_headers_id;
         let building_id = data.building_id;
         let keyValue = data.keyValue;
-        let answeredDate = moment
-          .utc(new Date())
-          .local()
-          .format("YYYY-MM-DD HH:mm:ss");
+        let answeredDate =data.answeredDate;
         let countryId = data.countryId;
         let subQuestionId = data.subQuestionId;
         let surveySectionId = data.surveySectionId;
