@@ -21,8 +21,7 @@ const addAnswer = (req, res) => {
       percent,
     });
     if (percent === 100) clearInterval(interval);
-  }, 200);
-  console.log(percent);
+  }, 1000);
 
   upload(req, res, (err) => {
     let modifiedFiles = req.files;
@@ -45,7 +44,7 @@ const addAnswer = (req, res) => {
         let survey_headers_id = data.survey_headers_id;
         let building_id = data.building_id;
         let keyValue = data.keyValue;
-        let answeredDate =data.answeredDate;
+        let answeredDate = data.answeredDate;
         let countryId = data.countryId;
         let subQuestionId = data.subQuestionId;
         let surveySectionId = data.surveySectionId;
@@ -111,7 +110,6 @@ const addAnswer = (req, res) => {
       });
     });
     queryLoop.then(res.json(response({ success: true, payload: null })));
-    console.log(req.files);
     if (req.files.length === 0) {
       console.log("No Files");
       return;
