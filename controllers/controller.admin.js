@@ -7,12 +7,12 @@ require("dotenv").config();
 const downloadFile = (req, res) => {
   const buildingId = req.params.buildingId;
   const fileName = req.params.fileName;
-  
+
   const DIR = `public/uploads/${buildingId}/`;
   const Home = `http://${process.env.DB_HOST}:3001/uploads/${buildingId}/`;
 
   fs.readdir("./" + DIR, (err, files) => {
-    const searchedfile = files.filter((v) => v === fileName);
+    const searchedfile = files.filter((v) => v === fileName)[0];
     console.log(fileName);
     console.log(files);
     console.log(searchedfile);
