@@ -1,7 +1,7 @@
 const { questionService } = require("../services");
 const response = require("../response/response");
 var groupArray = require("group-array");
-const moment=require ("moment")
+const moment = require("moment");
 
 const getQuestion = (req, res) => {
   let count = 0;
@@ -9,20 +9,15 @@ const getQuestion = (req, res) => {
   const userId = req.params.userId;
 
   questionService
-    .getQuestion(userId,buildingId)
+    .getQuestion(userId, buildingId)
     .then((data) => {
+      console.log(data[2][0].total_meeting_rooms);
       const surveySections = Object.keys(
-        groupArray(
-          data[2][0].total_meeting_rooms > 0
-            ? data[0]
-            : data[0].filter((v) => v.survey_section_id != 3),
-          "survey_section_id"
-        )
+        groupArray(data[0], "survey_section_id")
       ).map((v, k) => {
         return groupArray(data[0], "survey_section_id")[v];
       });
       const rawData = data[1].reduce((r, c) => {
-        console.log(c);
         const R = [...r];
         const index = R.findIndex(
           (v) =>
@@ -43,7 +38,7 @@ const getQuestion = (req, res) => {
             surveySectionId: c.surveySectionId,
             subQuestionId: c.subQuestionId,
             fileName: [c.fileName],
-            answeredDate:moment(c.answeredDate).format("YYYY-MM-DD HH:mm:ss")
+            answeredDate: moment(c.answeredDate).format("YYYY-MM-DD HH:mm:ss"),
           });
         } else if (c.fileName === null) {
           R.push({
@@ -57,7 +52,7 @@ const getQuestion = (req, res) => {
             countryId: c.countryId,
             surveySectionId: c.surveySectionId,
             subQuestionId: c.subQuestionId,
-            answeredDate:moment(c.answeredDate).format("YYYY-MM-DD HH:mm:ss")
+            answeredDate: moment(c.answeredDate).format("YYYY-MM-DD HH:mm:ss"),
           });
         } else {
           c.fileName != null ? R[index].fileName.push(c.fileName) : [];
@@ -235,7 +230,7 @@ const getQuestion = (req, res) => {
           }),
           answers: rawData,
           amountOfDevice: data[2],
-          userInfo:data[3],
+          userInfo: data[3],
           question_count: count,
         },
       ];
