@@ -41,9 +41,11 @@ const getBuildingList = (req, res) => {
 
 const getAllBuilding = (req, res) => {
   const userId = req.params.userId;
+  
   buildingService
     .getAllBuilding()
-    .then((data) => res.json(response({ success: true, payload: data })))
+    .then((data) => {      
+      res.json(response({ success: true, payload: data }))})
     .catch((err) => res.json(response({ success: false, message: err })));
 };
 

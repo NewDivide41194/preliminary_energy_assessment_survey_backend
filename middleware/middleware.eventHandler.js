@@ -23,8 +23,7 @@ function eventsHandler(request, response, next) {
   clients.push(newClient);
 
   request.on('close', () => {
-    console.log("connection clossed");
-    // console.log(`${clientId} Connection closed`);
+    console.log("connection closed");
     clients = clients.filter(client => client.id !== clientId);
   });
 }
@@ -34,4 +33,4 @@ function sendEventsToAll(newData) {
   console.log(newData);
 }
 
-module.exports={sendEventsToAll,eventsHandler}
+module.exports = { sendEventsToAll, eventsHandler }

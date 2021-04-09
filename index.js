@@ -5,7 +5,7 @@ const path = require("path");
 const appRouter = require("./routes");
 const response = require("./response/response");
 const app = express();
-const {eventsHandler}=require('./middleware/middleware.eventHandler')
+const { eventsHandler } = require('./middleware/middleware.eventHandler')
 const port = 3001;
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -24,15 +24,14 @@ app.use((req, res, next) => {
 });
 app.use("/api/v1", appRouter);
 
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   res.status(500);
-  if(err)
+  if (err)
     res.send(response({ success: false, message: err.toString(), payload: null }))
 });
 
 
 app.get('/events', eventsHandler);
-
 
 app.listen(port, () => {
   console.log(`App is listening on port ${port}`);
