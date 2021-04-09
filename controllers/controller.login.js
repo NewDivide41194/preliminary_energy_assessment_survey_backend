@@ -3,17 +3,16 @@ const response = require('../response/response')
 const { verifyToken } = require('../security/token')
 
 
-const logIn = (req, res) => {
+const logIn = (req, res, next) => {
     const email = req.body.email
     const password = req.body.password
 
     loginService.login(email, password, (err, data) => {
         if (err) {
-            res.json(response({ success: false, message: err, payload: null }))
+            next(err)
         } else {
             if (data === false) {
-                res.json(response({ success: false, message: "Email or Password Incorrect!", payload: null }))
-
+                next("Email or Password Incorrect!")
             } else {
                 res.json(response({ success: true, message: "Login success", payload: [data] }))
 

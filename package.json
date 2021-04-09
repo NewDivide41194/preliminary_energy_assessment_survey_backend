@@ -8,9 +8,8 @@
   },
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
-    "bcrypt": "^5.0.0",
+    "bcrypt": "^5.0.1",
     "busboy": "^0.3.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -23,8 +22,20 @@
     "multer": "^1.4.2",
     "mysql2": "^2.2.5",
     "nanoid": "^3.1.20",
+    "nodemon": "^2.0.7",
     "path": "^0.12.7",
     "pusher": "^5.0.0",
+    "socket.io": "^4.0.1",
     "util": "^0.12.3"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NewDivide41194/preliminary_energy_assessment_survey_backend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/NewDivide41194/preliminary_energy_assessment_survey_backend/issues"
+  },
+  "homepage": "https://github.com/NewDivide41194/preliminary_energy_assessment_survey_backend#readme",
+  "description": ""
 }

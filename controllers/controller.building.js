@@ -1,6 +1,7 @@
 const { buildingService } = require("../services");
 const response = require("../response/response");
 const moment = require("moment");
+const { sendEventsToAll } = require("../middleware/middleware.eventHandler");
 
 const getBuilding = (req, res) => {
   const buildingId = req.params.buildingId;
@@ -46,7 +47,7 @@ const getAllBuilding = (req, res) => {
     .catch((err) => res.json(response({ success: false, message: err })));
 };
 
-const addBuilding = (req, res) => {
+const addBuilding = (req, res,next) => {
   const buildingName = req.body.buildingName;
   const companyName = req.body.companyName;
   const buildingTypeId = req.body.buildingTypeId;
@@ -89,11 +90,22 @@ const addBuilding = (req, res) => {
       totalMeetingRooms
     )
     .then((data) => {
+      const BuildingData = {
+        building_id: data.insertId,
+        building_name: buildingName,
+        building_type_name: buildingType.label,
+        createdBy: userId,
+        createdDate: createdDate
+      }
+      sendEventsToAll(BuildingData)
       res.json(
         response({ success: true, message: "Inserted!", payload: data })
       );
     })
+  
     .catch((err) => {
+      console.log(err);
+      next(err)
       res.json(response({ success: false, message: err }));
     });
 };

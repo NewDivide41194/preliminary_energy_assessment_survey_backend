@@ -3,18 +3,15 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path");
 const appRouter = require("./routes");
-// const helmet = require('helmet')
-// const morgan = require('morgan')
+const response = require("./response/response");
 const app = express();
+const {eventsHandler}=require('./middleware/middleware.eventHandler')
 const port = 3001;
 
 app.use(express.static(path.join(__dirname, "public")));
-// app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
-// app.use(morgan("combined"));
-// app.use(express.static(path.join(__dirname, "public")));
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -26,6 +23,16 @@ app.use((req, res, next) => {
   next();
 });
 app.use("/api/v1", appRouter);
+
+app.use(function(err, req, res, next) {
+  res.status(500);
+  if(err)
+    res.send(response({ success: false, message: err.toString(), payload: null }))
+});
+
+
+app.get('/events', eventsHandler);
+
 
 app.listen(port, () => {
   console.log(`App is listening on port ${port}`);

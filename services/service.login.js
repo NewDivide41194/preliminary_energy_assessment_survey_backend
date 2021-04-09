@@ -4,9 +4,11 @@ const bcrypt = require("bcrypt");
 const response = require("../response/response");
 
 const login = (email, password, callbackWhenDone) => {
-  return surveydb.login(email, password)
+  console.log("HHHHHH")
+  return surveydb.login(email)
     .then((res) => {
-      const result = res[0];
+      const result = res[0][0]
+      console.log("-------->", result);
       if (res.length) {
         const hash = result.password.toString();
         return bcrypt.compare(password, hash, function (err, response) {
@@ -31,7 +33,9 @@ const login = (email, password, callbackWhenDone) => {
         return callbackWhenDone(null, false);
       }
     })
-    .catch((err) => response({ error: err, success: false, message: err }));
+    .catch((err) => {
+      callbackWhenDone(err, null)
+    });
 };
 
 module.exports = { login };

@@ -2,7 +2,6 @@ const { answerService } = require("../services");
 const response = require("../response/response");
 const { upload } = require("../middleware");
 const Pusher = require("pusher");
-const moment = require("moment");
 const { uploadImage } = require("./controller.upload");
 
 const addAnswer = (req, res) => {
@@ -118,7 +117,6 @@ const addAnswer = (req, res) => {
     }
   });
 };
-
 module.exports = {
   addAnswer,
 };
