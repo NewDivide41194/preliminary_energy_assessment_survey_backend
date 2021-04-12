@@ -41,15 +41,16 @@ const getBuildingList = (req, res) => {
 
 const getAllBuilding = (req, res) => {
   const userId = req.params.userId;
-  
+
   buildingService
     .getAllBuilding()
-    .then((data) => {      
-      res.json(response({ success: true, payload: data }))})
+    .then((data) => {
+      res.json(response({ success: true, payload: data }))
+    })
     .catch((err) => res.json(response({ success: false, message: err })));
 };
 
-const addBuilding = (req, res,next) => {
+const addBuilding = (req, res, next) => {
   const buildingName = req.body.buildingName;
   const companyName = req.body.companyName;
   const buildingTypeId = req.body.buildingTypeId;
@@ -92,21 +93,21 @@ const addBuilding = (req, res,next) => {
       totalMeetingRooms
     )
     .then((data) => {
+      // console.log(data);
       const BuildingData = {
-        building_id: data.insertId,
+        building_id: data[0].insertId,
         building_name: buildingName,
         building_type_name: buildingType.label,
-        createdBy: userId,
+        createdBy: data[1][0].user_name,
         createdDate: createdDate
       }
       sendEventsToAll(BuildingData)
       res.json(
-        response({ success: true, message: "Inserted!", payload: data })
+        response({ success: true, message: "Inserted!", payload: data[0] })
       );
     })
-  
+
     .catch((err) => {
-      console.log(err);
       next(err)
       res.json(response({ success: false, message: err }));
     });

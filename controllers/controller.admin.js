@@ -13,9 +13,6 @@ const downloadFile = (req, res) => {
 
   fs.readdir("./" + DIR, (err, files) => {
     const searchedfile = files.filter((v) => v === fileName)[0];
-    console.log(fileName);
-    console.log(files);
-    console.log(searchedfile);
     if (fileName !== searchedfile || searchedfile === undefined) {
       res.json(
         response({

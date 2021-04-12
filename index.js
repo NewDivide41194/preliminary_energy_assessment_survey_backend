@@ -1,12 +1,13 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const path = require("path");
+
 const appRouter = require("./routes");
 const response = require("./response/response");
 const app = express();
 const { eventsHandler } = require('./middleware/middleware.eventHandler')
 const port = 3001;
+const path = require("path");
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
@@ -22,6 +23,7 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Credentials", true);
   next();
 });
+
 app.use("/api/v1", appRouter);
 
 app.use(function (err, req, res, next) {

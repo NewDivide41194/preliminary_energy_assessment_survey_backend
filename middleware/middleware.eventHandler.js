@@ -23,14 +23,13 @@ function eventsHandler(request, response, next) {
   clients.push(newClient);
 
   request.on('close', () => {
-    console.log("connection closed");
+    console.log("connection clossed");
     clients = clients.filter(client => client.id !== clientId);
   });
 }
 
 function sendEventsToAll(newData) {
   clients.forEach(client => client.response.write(`data: ${JSON.stringify(newData)}\n\n`))
-  console.log(newData);
 }
 
-module.exports = { sendEventsToAll, eventsHandler }
+module.exports={sendEventsToAll,eventsHandler}

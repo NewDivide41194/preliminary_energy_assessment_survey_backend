@@ -11,7 +11,6 @@ const getQuestion = (req, res) => {
   questionService
     .getQuestion(userId, buildingId)
     .then((data) => {
-      console.log(data[2][0].total_meeting_rooms);
       const surveySections = Object.keys(
         groupArray(data[0], "survey_section_id")
       ).map((v, k) => {

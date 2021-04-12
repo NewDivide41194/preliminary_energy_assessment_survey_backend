@@ -66,9 +66,9 @@ const addBuilding = (
   totalMeetingRooms
 ) => {
   let query = util.promisify(mypool.query).bind(mypool);
-  // let sql = "CALL add_buildings(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
   return query(`Insert into pea_survey.tbl_buildings (building_name,company_name,building_type_id,building_type,active,created_date,created_by,address,postal_code,country,comment,user_id,survey_headers_id,chiller,condenser,evaporator,cooling_tower,avg_people,total_meeting_rooms)
-  Values ('${buildingName}','${companyName}',${buildingTypeId},'${buildingType}',${active},'${createdDate}',${userId},'${address}','${postalCode}','${country}','${comment}',${userId},${surveyHeadersId},${chiller},${condenser},${evaporator},${coolingTower},${avgPeople},${totalMeetingRooms})
+  Values ('${buildingName}','${companyName}',${buildingTypeId},'${buildingType}',${active},'${createdDate}',${userId},'${address}','${postalCode}','${country}','${comment}',${userId},${surveyHeadersId},${chiller},${condenser},${evaporator},${coolingTower},${avgPeople},${totalMeetingRooms});
+select user_name from pea_survey.tbl_login_users where login_user_id=${userId}
   `);
 };
 

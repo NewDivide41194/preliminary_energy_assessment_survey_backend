@@ -4,7 +4,6 @@ const bcrypt = require("bcrypt");
 const response = require("../response/response");
 
 const login = (email, password, callbackWhenDone) => {
-  console.log("HHHHHH")
   return surveydb.login(email)
     .then((res) => {
       const result = res[0][0]
