@@ -20,7 +20,7 @@ const addAnswer = (req, res) => {
       percent,
     });
     if (percent === 100) clearInterval(interval);
-  }, 1000);
+  }, 100);
 
   upload(req, res, (err) => {
     let modifiedFiles = req.files;
@@ -34,8 +34,9 @@ const addAnswer = (req, res) => {
 
     let queryLoop = new Promise((resolve, reject) => {
       answerService.deleteAnswer(userId, survey_header_id, building_id);
-
+      let cc=0;
       bodyData.map(async (data, k) => {
+        cc++;
         let optionChoiceId = data.optionChoiceId;
         let other = data.other;
         let userId = data.userId;
@@ -102,7 +103,8 @@ const addAnswer = (req, res) => {
               count++;
               if (count == targetCount) resolve({ answeredCount: count });
             } catch (error) {
-              console.log("error add Answer with Img ", error.toString());
+              // console.log("error add Answer with Img ", error.toString());
+              next(error)
             }
           });
         }
@@ -115,7 +117,7 @@ const addAnswer = (req, res) => {
     } else {
       answerService.deleteFiles(building_id);
     }
-  });
+  })
 };
 module.exports = {
   addAnswer,

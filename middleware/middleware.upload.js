@@ -20,7 +20,6 @@ const storage = multer.diskStorage({
                 ID = typeof req.body.id !== "string" ? req.body.id[i] : req.body.id;
             }
         }
-
         callback(null, ID + "_" + file.originalname);
     }
 });
