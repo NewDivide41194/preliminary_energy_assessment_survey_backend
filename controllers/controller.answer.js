@@ -20,7 +20,7 @@ const addAnswer = (req, res) => {
       percent,
     });
     if (percent === 100) clearInterval(interval);
-  }, 1000);
+  }, 500);
 
   upload(req, res, (err) => {
     let modifiedFiles = req.files;

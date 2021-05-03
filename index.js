@@ -32,7 +32,6 @@ app.use(function (err, req, res, next) {
     res.send(response({ success: false, message: err.toString(), payload: null }))
 });
 
-
 app.get('/events', eventsHandler);
 
 app.listen(port, () => {
