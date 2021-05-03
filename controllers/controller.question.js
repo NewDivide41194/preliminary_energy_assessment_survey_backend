@@ -3,10 +3,14 @@ const response = require("../response/response");
 var groupArray = require("group-array");
 const moment = require("moment");
 
+
+
 const getQuestion = (req, res) => {
   let count = 0;
   const buildingId = req.params.buildingId;
   const userId = req.params.userId;
+const baseURL=`http://localhost:3001/api/v1/admin/downloadFile/${buildingId}/`
+// const baseURL="http://172.105.123.57:3001/api/v1/admin/downloadFile/${buildingId}/"
 
   questionService
     .getQuestion(userId, buildingId)
@@ -37,6 +41,7 @@ const getQuestion = (req, res) => {
             surveySectionId: c.surveySectionId,
             subQuestionId: c.subQuestionId,
             fileName: [c.fileName],
+            URL: [baseURL+ c.fileName],
             answeredDate: moment(c.answeredDate).format("YYYY-MM-DD HH:mm:ss"),
           });
         } else if (c.fileName === null) {
@@ -55,6 +60,7 @@ const getQuestion = (req, res) => {
           });
         } else {
           c.fileName != null ? R[index].fileName.push(c.fileName) : [];
+          c.fileName != null ? R[index].URL.push(baseURL+c.fileName) : [];
         }
         return R;
       }, []);
