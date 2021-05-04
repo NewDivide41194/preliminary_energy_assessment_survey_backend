@@ -7,7 +7,7 @@ const getQuestion = (req, res) => {
   let count = 0;
   const buildingId = req.params.buildingId;
   const userId = req.params.userId;
-const baseURL=`http://localhost:3001/api/v1/admin/downloadFile/${buildingId}/`
+const baseURL=`http://localhost:3001/uploads/${buildingId}/`
 // const baseURL="http://172.105.123.57:3001/api/v1/admin/downloadFile/${buildingId}/"
 
   questionService
