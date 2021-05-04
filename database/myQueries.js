@@ -24,16 +24,9 @@ const login = (email) => {
     return res;
   })
     .catch(err => { throw err })
-
-};
-const getBuilding = (buildinId) => {
-  let query = util.promisify(mypool.query).bind(mypool);
-  return query(
-    `SELECT * FROM pea_survey.tbl_buildings where building_id = ${buildinId}`
-  );
 };
 
-const getBuildingType = (buildinId) => {
+const getBuildingType = () => {
   let query = util.promisify(mypool.query).bind(mypool);
   return query(`SELECT * FROM pea_survey.tbl_building_type;`);
 };
@@ -207,7 +200,7 @@ const isAdmin = (user_id) => {
 module.exports = {
   addUser,
   login,
-  getBuilding,
+  // getBuilding,
   addBuilding,
   getQuestion,
   getBuildingType,

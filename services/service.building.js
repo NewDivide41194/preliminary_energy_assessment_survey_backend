@@ -4,8 +4,8 @@ const getBuilding = (building_id) => {
     return surveydb.getBuilding(building_id);
 };
 
-const getBuildingType = (building_id) => {
-    return surveydb.getBuildingType(building_id);
+const getBuildingType = () => {
+    return surveydb.getBuildingType();
 };
 
 const getBuildingList = (userId) => {
@@ -16,7 +16,7 @@ const addBuilding = (buildingName, companyName, buildingTypeId, buildingType, ac
     return surveydb.addBuilding(buildingName, companyName, buildingTypeId, buildingType, active, createdDate, address, postalCode, country, comment, userId, surveyHeadersId, chiller, condenser, evaporator, coolingTower, avgPeople, totalMeetingRooms);
 };
 
-const getAllBuilding = (building_id) => {
+const getAllBuilding = () => {
     return surveydb.getAllBuilding();
 };
 module.exports = {
