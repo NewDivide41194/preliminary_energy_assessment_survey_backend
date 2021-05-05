@@ -2,7 +2,7 @@ const { questionService } = require("../services");
 const response = require("../response/response");
 var groupArray = require("group-array");
 const moment = require("moment");
-
+const fs = require("fs")
 
 
 const getQuestion = (req, res) => {
@@ -22,6 +22,7 @@ const baseURL=`http://localhost:3001/api/v1/admin/downloadFile/${buildingId}/`
       });
       const rawData = data[1].reduce((r, c) => {
         const R = [...r];
+        
         const index = R.findIndex(
           (v) =>
             c.optionChoiceId == v.optionChoiceId &&
@@ -41,8 +42,10 @@ const baseURL=`http://localhost:3001/api/v1/admin/downloadFile/${buildingId}/`
             surveySectionId: c.surveySectionId,
             subQuestionId: c.subQuestionId,
             fileName: [c.fileName],
-            URL: [baseURL+ c.fileName],
+            file: [{fileName:c.fileName,URL:baseURL+ c.fileName,
+          }],
             answeredDate: moment(c.answeredDate).format("YYYY-MM-DD HH:mm:ss"),
+            
           });
         } else if (c.fileName === null) {
           R.push({
@@ -60,7 +63,7 @@ const baseURL=`http://localhost:3001/api/v1/admin/downloadFile/${buildingId}/`
           });
         } else {
           c.fileName != null ? R[index].fileName.push(c.fileName) : [];
-          c.fileName != null ? R[index].URL.push(baseURL+c.fileName) : [];
+          c.fileName != null ? R[index].file.push({fileName:c.fileName,URL:baseURL+ c.fileName}) : [];
         }
         return R;
       }, []);
