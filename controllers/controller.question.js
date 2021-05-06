@@ -29,7 +29,9 @@ const baseURL=`http://localhost:3001/uploads/${buildingId}/`
             c.subQuestionId == v.subQuestionId &&
             v.questionId == c.questionId
         );
+        
         if (c.fileName && index == -1) {
+
           R.push({
             other: c.other,
             optionChoiceId: c.optionChoiceId,
@@ -42,8 +44,7 @@ const baseURL=`http://localhost:3001/uploads/${buildingId}/`
             surveySectionId: c.surveySectionId,
             subQuestionId: c.subQuestionId,
             fileName: [c.fileName],
-            file: [{fileName:c.fileName,URL:baseURL+ c.fileName,
-          }],
+            fileObject: [{fileName:c.fileName,URL:baseURL+ c.fileName}],
             answeredDate: moment(c.answeredDate).format("YYYY-MM-DD HH:mm:ss"),
             
           });
@@ -63,7 +64,7 @@ const baseURL=`http://localhost:3001/uploads/${buildingId}/`
           });
         } else {
           c.fileName != null ? R[index].fileName.push(c.fileName) : [];
-          c.fileName != null ? R[index].file.push({fileName:c.fileName,URL:baseURL+ c.fileName}) : [];
+          c.fileName != null ? R[index].fileObject.push({fileName:c.fileName,URL:baseURL+ c.fileName,}) : [];
         }
         return R;
       }, []);
