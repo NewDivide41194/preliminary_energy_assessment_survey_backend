@@ -32,6 +32,7 @@ const baseURL=`http://localhost:3001/uploads/${buildingId}/`
         
         if (c.fileName && index == -1) {
 
+          const stats = fs.statSync(`./public/uploads/${buildingId}/${c.fileName}`) 
           R.push({
             other: c.other,
             optionChoiceId: c.optionChoiceId,
@@ -44,7 +45,7 @@ const baseURL=`http://localhost:3001/uploads/${buildingId}/`
             surveySectionId: c.surveySectionId,
             subQuestionId: c.subQuestionId,
             fileName: [c.fileName],
-            fileObject: [{fileName:c.fileName,URL:baseURL+ c.fileName}],
+            fileObject: [{fileName:c.fileName,URL:baseURL+ c.fileName,fileSize : stats.size / 1000 +" Kb"}],
             answeredDate: moment(c.answeredDate).format("YYYY-MM-DD HH:mm:ss"),
             
           });
@@ -63,8 +64,9 @@ const baseURL=`http://localhost:3001/uploads/${buildingId}/`
             answeredDate: moment(c.answeredDate).format("YYYY-MM-DD HH:mm:ss"),
           });
         } else {
+          const stats = fs.statSync(`./public/uploads/${buildingId}/${c.fileName}`) 
           c.fileName != null ? R[index].fileName.push(c.fileName) : [];
-          c.fileName != null ? R[index].fileObject.push({fileName:c.fileName,URL:baseURL+ c.fileName,}) : [];
+          c.fileName != null ? R[index].fileObject.push({fileName:c.fileName,URL:baseURL+ c.fileName, fileSize :stats.size / 1000 + "Kb"}) : [];
         }
         return R;
       }, []);
