@@ -45,7 +45,7 @@ const baseURL=`http://localhost:3001/uploads/${buildingId}/`
             surveySectionId: c.surveySectionId,
             subQuestionId: c.subQuestionId,
             fileName: [c.fileName],
-            fileObject: [{fileName:c.fileName,URL:baseURL+ c.fileName,fileSize : stats.size / 1000 +" Kb"}],
+            fileObject: [{fileName:c.fileName,URL:baseURL+ c.fileName,fileSize : (stats.size / 1000).toFixed(0) +" Kb"}],
             answeredDate: moment(c.answeredDate).format("YYYY-MM-DD HH:mm:ss"),
             
           });
@@ -66,7 +66,7 @@ const baseURL=`http://localhost:3001/uploads/${buildingId}/`
         } else {
           const stats = fs.statSync(`./public/uploads/${buildingId}/${c.fileName}`) 
           c.fileName != null ? R[index].fileName.push(c.fileName) : [];
-          c.fileName != null ? R[index].fileObject.push({fileName:c.fileName,URL:baseURL+ c.fileName, fileSize :stats.size / 1000 + "Kb"}) : [];
+          c.fileName != null ? R[index].fileObject.push({fileName:c.fileName,URL:baseURL+ c.fileName, fileSize :(stats.size.toFixed(0) / 1000).toFixed(0) + "Kb"}) : [];
         }
         return R;
       }, []);
