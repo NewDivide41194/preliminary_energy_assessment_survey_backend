@@ -25,6 +25,8 @@ const addAnswer = (req, res) => {
   upload(req, res, (err) => {
     let modifiedFiles = req.files;
     let bodyData = JSON.parse(req.body.data);
+    // console.log("body data is", req.body.data)
+    // let bodyData = req.body.data
     let targetCount = bodyData.length;
     let count = 0;
     const userId = bodyData[0].userId;
@@ -73,9 +75,9 @@ const addAnswer = (req, res) => {
             console.log("error add Answer ", error.toString());
           }
         } else {
-          data.fileName.map((v1, k1) => {
+          // data.fileName.map((v1, k1) => {
             try {
-              v1.length > 41 && v1.slice(8).startsWith("-")
+              fileName.length > 41 && fileName.slice(8).startsWith("-")
                 ? i
                 : j == k
                 ? i++
@@ -93,11 +95,11 @@ const addAnswer = (req, res) => {
                 countryId,
                 subQuestionId,
                 surveySectionId,
-                v1.length > 41 && v1.slice(8).startsWith("-")
-                  ? v1
+                fileName.length > 41 && fileName.slice(8).startsWith("-")
+                  ? fileName
                   : typeof req.body.id == "string"
-                  ? req.body.id + "_" + v1
-                  : req.body.id[i - 1] + "_" + v1,
+                  ? req.body.id + "_" + fileName
+                  : req.body.id[i - 1] + "_" + fileName,
                 j++
               );
               count++;
@@ -106,7 +108,7 @@ const addAnswer = (req, res) => {
               // console.log("error add Answer with Img ", error.toString());
               next(error)
             }
-          });
+          // });
         }
       });
     });
