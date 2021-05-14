@@ -12,6 +12,7 @@ const storage = multer.diskStorage({
         callback(null, `./public/uploads/${val}/`);
     },
     filename: function (req, file, callback) {
+        console.log("file is ===>", file)
 
         var ID = typeof req.body.id === "string" && req.body.id;
 

@@ -25,7 +25,7 @@ const addAnswer = (req, res) => {
   upload(req, res, (err) => {
     let modifiedFiles = req.files;
     let bodyData = JSON.parse(req.body.data);
-    // console.log("body data is", req.body.data)
+    console.log("body data is", bodyData)
     // let bodyData = req.body.data
     let targetCount = bodyData.length;
     let count = 0;
@@ -77,6 +77,7 @@ const addAnswer = (req, res) => {
         } else {
           // data.fileName.map((v1, k1) => {
             try {
+              // filename shi p tr so db hte twr tein mr because file ko delete ma pyit lo shi p tr so yin
               fileName.length > 41 && fileName.slice(8).startsWith("-")
                 ? i
                 : j == k
